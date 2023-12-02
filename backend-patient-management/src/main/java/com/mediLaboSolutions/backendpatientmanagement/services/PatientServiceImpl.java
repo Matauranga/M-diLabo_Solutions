@@ -1,5 +1,7 @@
 package com.mediLaboSolutions.backendpatientmanagement.services;
 
+import com.mediLaboSolutions.backendpatientmanagement.DTO.PatientDTO;
+import com.mediLaboSolutions.backendpatientmanagement.exceptions.PatientAlreadyExistsException;
 import com.mediLaboSolutions.backendpatientmanagement.exceptions.PatientNotFoundException;
 import com.mediLaboSolutions.backendpatientmanagement.models.Patient;
 import com.mediLaboSolutions.backendpatientmanagement.repositories.PatientRepository;
@@ -15,36 +17,55 @@ public class PatientServiceImpl implements PatientService {
     final PatientRepository patientRepository;
 
     public PatientServiceImpl(PatientRepository patientRepository) {
+
         this.patientRepository = patientRepository;
     }
 
-    public List<Patient> getAllPatients() {
-        return patientRepository.findAll();
+    public List<PatientDTO> getAllPatients() {
+        return patientRepository.findAll()
+                .stream()
+                .map(PatientDTO::new)
+                .toList();
     }
 
-    public Optional<Patient> getPersonById(UUID id) {
+    public Optional<Patient> getPatientById(UUID id) {
         return patientRepository.findById(id);
     }
 
-    public Optional<Patient> getPatientByFirstAndLastName(String firstName, String lastName) { // TODO : A modif
-        return null;
+    public PatientDTO getPatientByFirstAndLastName(String firstName, String lastName) {
+        return new PatientDTO(patientRepository.findByFirstnameAndLastname(firstName, lastName));
     }
 
-    public Patient savePerson(Patient patientToCreate) {
+    public Patient savePatient(Patient patientToCreate) {
         return patientRepository.save(patientToCreate);
     }
 
-    public void updatePatient(UUID id, Patient patient) { // TODO : A modif
-        if (!patientRepository.existsById(id)) {
+    public void saveNewPatient(PatientDTO patientDTO) {
+        if (patientRepository.existsByFirstnameAndLastname(patientDTO.getFirstname(), patientDTO.getLastname())) {
+            throw new PatientAlreadyExistsException("This patient already exist in data base.");
+        }
+        Patient patient = new Patient();
+        patient.update(patientDTO);
+        patientRepository.save(patient);
+    }
+
+    public void updatePatient(PatientDTO updatedPatientDto) {
+        if (!patientRepository.existsByFirstnameAndLastname(updatedPatientDto.getFirstname(), updatedPatientDto.getLastname())) {
             throw new PatientNotFoundException("Patient doesn't exists");
         }
 
-        patientRepository.save(patient);
+        Patient updatedPatient = patientRepository.findByFirstnameAndLastname(updatedPatientDto.getFirstname(), updatedPatientDto.getLastname())
+                .update(updatedPatientDto);
 
+        patientRepository.save(updatedPatient);
     }
 
-    public void deletePatient(UUID id) {
-        patientRepository.deleteById(id);
+    public void deletePatient(PatientDTO patientDTO) {
 
+        patientRepository.deleteById(getIdFromName(patientDTO));
+    }
+
+    private UUID getIdFromName(PatientDTO patientDTO) {
+        return patientRepository.findByFirstnameAndLastname(patientDTO.getFirstname(), patientDTO.getLastname()).getId();
     }
 }

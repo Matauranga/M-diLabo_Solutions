@@ -1,5 +1,6 @@
 package com.mediLaboSolutions.backendpatientmanagement.models;
 
+import com.mediLaboSolutions.backendpatientmanagement.DTO.PatientDTO;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -53,11 +54,22 @@ public class Patient {
                 '}';
     }
 
-    /**
-     * To retrieve patient
-     */
-    public String getPatientId() {
-        return firstname + "-" + lastname;
+//    /**
+//     * To retrieve patient
+//     */
+//    public String getPatientByFistAndLastName() {
+//        return firstname + "-" + lastname;
+//    }
+
+    public Patient update(PatientDTO patientDTO) {
+        this.firstname = patientDTO.getFirstname();
+        this.lastname = patientDTO.getLastname();
+        this.birthdate = patientDTO.getBirthdate();
+        this.gender = patientDTO.getGender();
+        this.address = patientDTO.getAddress();
+        this.phonenumber = patientDTO.getPhonenumber();
+
+        return this;
     }
 
 

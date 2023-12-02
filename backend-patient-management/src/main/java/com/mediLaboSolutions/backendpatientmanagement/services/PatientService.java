@@ -1,5 +1,6 @@
 package com.mediLaboSolutions.backendpatientmanagement.services;
 
+import com.mediLaboSolutions.backendpatientmanagement.DTO.PatientDTO;
 import com.mediLaboSolutions.backendpatientmanagement.models.Patient;
 
 import java.util.List;
@@ -8,16 +9,18 @@ import java.util.UUID;
 
 public interface PatientService {
 
-    List<Patient> getAllPatients();
+    List<PatientDTO> getAllPatients();
 
-    Optional<Patient> getPersonById(UUID id);
+    Optional<Patient> getPatientById(UUID id);
 
-    Optional<Patient> getPatientByFirstAndLastName(String firstName, String lastName);
+    PatientDTO getPatientByFirstAndLastName(String firstName, String lastName);
 
-    Patient savePerson(Patient patientToCreate);
+    Patient savePatient(Patient patientToCreate);
 
-    void updatePatient(UUID id, Patient patient);
+    void saveNewPatient(PatientDTO patientDTO);
 
-    void deletePatient(UUID id);
+    void updatePatient(PatientDTO UpdatedPatient);
+
+    void deletePatient(PatientDTO patientDTO);
 
 }
