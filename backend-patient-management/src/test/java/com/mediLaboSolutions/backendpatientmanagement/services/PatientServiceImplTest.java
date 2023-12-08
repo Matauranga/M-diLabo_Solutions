@@ -47,29 +47,12 @@ class PatientServiceImplTest {
 
         //When we try to get the patient
         when(patientRepository.findById(any())).thenReturn(Optional.of(patient));
-        Optional<Patient> response = patientService.getPatientById(patient.getId());
+        PatientDTO response = patientService.getPatientById(patient.getId());
 
         //Then we verify if all is ok
         verify(patientRepository, times(1)).findById(any());
-        assertThat(response).contains(patient);
-    }
-
-    @Test
-    void getPatientByFirstAndLastName() {
-        //Given an initial patient
-        Patient patient = PatientFaker.generate();
-        String firstname = patient.getFirstname();
-        String lastname = patient.getLastname();
-
-        //When we try to get the patient
-        when(patientRepository.findByFirstnameAndLastname(any(), any())).thenReturn(patient);
-        PatientDTO response = patientService.getPatientByFirstAndLastName(firstname, lastname);
-
-        //Then we verify if all is ok
-        verify(patientRepository, times(1)).findByFirstnameAndLastname(any(), any());
-        assertThat(response.getFirstname()).contains(patient.getFirstname());
-        assertThat(response.getAddress()).contains(patient.getAddress());
-
+        assertThat(response.getLastname()).isEqualTo(patient.getLastname());
+        assertThat(response.getBirthdate()).isEqualTo(patient.getBirthdate());
     }
 
     @Test
@@ -91,11 +74,11 @@ class PatientServiceImplTest {
         PatientDTO patientDTO = new PatientDTO(PatientFaker.generate());
 
         //When we add the patient
-        when(patientRepository.existsByFirstnameAndLastname(any(), any())).thenReturn(false);
+        when(patientRepository.existsById(any())).thenReturn(false);
         patientService.saveNewPatient(patientDTO);
 
         //Then we verify if all is ok
-        verify(patientRepository, times(1)).existsByFirstnameAndLastname(any(), any());
+        verify(patientRepository, times(1)).existsById(any());
         verify(patientRepository, times(1)).save(any());
     }
 
@@ -105,11 +88,11 @@ class PatientServiceImplTest {
         PatientDTO patientDTO = new PatientDTO(PatientFaker.generate());
 
         //When we add the patient
-        when(patientRepository.existsByFirstnameAndLastname(any(), any())).thenReturn(true);
+        when(patientRepository.existsById(any())).thenReturn(true);
         String response = assertThrows(PatientAlreadyExistsException.class, () -> patientService.saveNewPatient(patientDTO)).getMessage();
 
         //Then we verify if all is ok
-        verify(patientRepository, times(1)).existsByFirstnameAndLastname(any(), any());
+        verify(patientRepository, times(1)).existsById(any());
         verify(patientRepository, times(0)).save(any());
         assertThat(response).contains("This patient already exist in data base.");
     }
@@ -123,12 +106,12 @@ class PatientServiceImplTest {
         patientDTO.setGender("Tardis");
 
         //When we update the patient
-        when(patientRepository.existsByFirstnameAndLastname(any(), any())).thenReturn(true);
-        when(patientRepository.findByFirstnameAndLastname(any(),any())).thenReturn(patient);
+        when(patientRepository.existsById(any())).thenReturn(true);
+        when(patientRepository.findById(any())).thenReturn(Optional.of(patient));
         patientService.updatePatient(patientDTO);
 
         //Then we verify if all is ok
-        verify(patientRepository, times(1)).existsByFirstnameAndLastname(any(), any());
+        verify(patientRepository, times(1)).existsById(any());
         verify(patientRepository, times(1)).save(any());
         assertThat(patient.getGender()).isEqualTo("Tardis");
         assertThat(patient.getAddress()).isEqualTo("123 Toulon");
@@ -144,11 +127,11 @@ class PatientServiceImplTest {
         patientDTO.setGender("Tardis");
 
         //When we update the patient
-        when(patientRepository.existsByFirstnameAndLastname(any(), any())).thenReturn(false);
+        when(patientRepository.existsById(any())).thenReturn(false);
         String response = assertThrows(PatientNotFoundException.class, () -> patientService.updatePatient(patientDTO)).getMessage();
 
         //Then we verify if all is ok
-        verify(patientRepository, times(1)).existsByFirstnameAndLastname(any(), any());
+        verify(patientRepository, times(1)).existsById(any());
         verify(patientRepository, times(0)).save(any());
         assertThat(response).isEqualTo("Patient doesn't exists");
         assertThat(patient.getAddress()).isNotEqualTo(patientDTO.getAddress());
@@ -161,7 +144,7 @@ class PatientServiceImplTest {
         PatientDTO patientDTO = new PatientDTO(patient);
 
         //When we delete the patient
-        when(patientRepository.findByFirstnameAndLastname(anyString(), anyString())).thenReturn(patient);
+        when(patientRepository.findById(any())).thenReturn(Optional.of(patient));
         patientService.deletePatient(patientDTO);
 
         //Then we verify if all is ok

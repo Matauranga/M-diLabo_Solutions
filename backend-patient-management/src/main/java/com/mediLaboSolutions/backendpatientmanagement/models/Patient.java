@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.util.UUID;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -22,8 +21,8 @@ import java.util.UUID;
 public class Patient {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
 
     @NotBlank
     private String firstname;
@@ -53,13 +52,6 @@ public class Patient {
                 ", phoneNumber='" + phonenumber + '\'' +
                 '}';
     }
-
-//    /**
-//     * To retrieve patient
-//     */
-//    public String getPatientByFistAndLastName() {
-//        return firstname + "-" + lastname;
-//    }
 
     public Patient update(PatientDTO patientDTO) {
         this.firstname = patientDTO.getFirstname();

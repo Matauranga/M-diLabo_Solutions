@@ -8,8 +8,6 @@ import com.mediLaboSolutions.backendpatientmanagement.repositories.PatientReposi
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
 
 @Service
 public class PatientServiceImpl implements PatientService {
@@ -28,12 +26,9 @@ public class PatientServiceImpl implements PatientService {
                 .toList();
     }
 
-    public Optional<Patient> getPatientById(UUID id) {
-        return patientRepository.findById(id);
-    }
+    public PatientDTO getPatientById(Integer patientId) {
 
-    public PatientDTO getPatientByFirstAndLastName(String firstName, String lastName) {
-        return new PatientDTO(patientRepository.findByFirstnameAndLastname(firstName, lastName));
+        return new PatientDTO(patientRepository.findById(patientId).orElseThrow());
     }
 
     public Patient savePatient(Patient patientToCreate) {
@@ -41,7 +36,7 @@ public class PatientServiceImpl implements PatientService {
     }
 
     public void saveNewPatient(PatientDTO patientDTO) {
-        if (patientRepository.existsByFirstnameAndLastname(patientDTO.getFirstname(), patientDTO.getLastname())) {
+        if (patientRepository.existsById(patientDTO.getPatentId())) {
             throw new PatientAlreadyExistsException("This patient already exist in data base.");
         }
         Patient patient = new Patient();
@@ -50,11 +45,12 @@ public class PatientServiceImpl implements PatientService {
     }
 
     public void updatePatient(PatientDTO updatedPatientDto) {
-        if (!patientRepository.existsByFirstnameAndLastname(updatedPatientDto.getFirstname(), updatedPatientDto.getLastname())) {
+        if (!patientRepository.existsById(updatedPatientDto.getPatentId())) {
             throw new PatientNotFoundException("Patient doesn't exists");
         }
 
-        Patient updatedPatient = patientRepository.findByFirstnameAndLastname(updatedPatientDto.getFirstname(), updatedPatientDto.getLastname())
+        Patient updatedPatient = patientRepository.findById(updatedPatientDto.getPatentId())
+                .orElseThrow()
                 .update(updatedPatientDto);
 
         patientRepository.save(updatedPatient);
@@ -62,10 +58,6 @@ public class PatientServiceImpl implements PatientService {
 
     public void deletePatient(PatientDTO patientDTO) {
 
-        patientRepository.deleteById(getIdFromName(patientDTO));
-    }
-
-    private UUID getIdFromName(PatientDTO patientDTO) {
-        return patientRepository.findByFirstnameAndLastname(patientDTO.getFirstname(), patientDTO.getLastname()).getId();
+        patientRepository.deleteById(patientDTO.getPatentId());
     }
 }

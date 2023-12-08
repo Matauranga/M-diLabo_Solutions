@@ -27,9 +27,9 @@ public class PatientController {
     }
 
     @GetMapping(value = "/patient")
-    public PatientDTO patientInfos(@RequestParam String firstname, @RequestParam String lastname) {
+    public PatientDTO patientInfos(@RequestParam Integer id) {
 
-        return patientService.getPatientByFirstAndLastName(firstname, lastname);
+        return patientService.getPatientById(id);
     }
 
     @PostMapping("/patient")

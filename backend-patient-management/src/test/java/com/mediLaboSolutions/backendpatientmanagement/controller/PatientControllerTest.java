@@ -45,7 +45,7 @@ class PatientControllerTest {
 
 
         //When we initiate the request
-        mockMvc.perform(get("/patient?firstname=Test&lastname=TestBorderline"))
+        mockMvc.perform(get("/patient?id=2"))
                 //Then we verify is all works correctly
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("TestBorderline")));
@@ -73,7 +73,7 @@ class PatientControllerTest {
     @Test
     void updatePatient() throws Exception {
         //Given
-        PatientDTO patientDTO = new PatientDTO("Test", "TestNone", null, "F", "Toulon", "999-999-9999");
+        PatientDTO patientDTO = new PatientDTO(1, "Test", "TestNone", null, "F", "Toulon", "999-999-9999");
 
 
         //When we initiate the request
@@ -90,7 +90,7 @@ class PatientControllerTest {
     @Test
     void deletePatient() throws Exception {
         //Given
-        PatientDTO patientDTO = new PatientDTO("Test", "TestNone", null, null, null, null);
+        PatientDTO patientDTO = new PatientDTO(202, "Test", "TestNone", null, null, null, null);
 
 
         //When we initiate the request
