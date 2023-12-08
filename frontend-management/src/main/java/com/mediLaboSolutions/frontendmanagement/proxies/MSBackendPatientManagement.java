@@ -14,6 +14,5 @@ public interface MSBackendPatientManagement {
     List<PatientBean> patientsList();
 
     @GetMapping(value = "/patient")
-    PatientBean patientInfos(@RequestParam String firstname,
-                             @RequestParam String lastname);
+    PatientBean patientInfos(@RequestParam Integer id);
 }

@@ -13,3 +13,8 @@ public class FrontendManagementApplication {
 	}
 
 }
+
+//TODO : finir les autres endpoint
+//TODO : faire les tests
+//TODO :
+//TODO : probleme de redirection apres update

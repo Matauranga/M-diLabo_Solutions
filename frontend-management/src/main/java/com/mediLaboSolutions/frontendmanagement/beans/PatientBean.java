@@ -11,6 +11,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class PatientBean {
 
+    private Integer id;
     private String firstname;
     private String lastname;
     private LocalDate birthdate;
@@ -21,7 +22,8 @@ public class PatientBean {
     @Override
     public String toString() {
         return "PatientBean{" +
-                "firstname='" + firstname + '\'' +
+                "id=" + id +
+                ", firstname='" + firstname + '\'' +
                 ", lastname='" + lastname + '\'' +
                 ", birthdate=" + birthdate +
                 ", gender='" + gender + '\'' +
