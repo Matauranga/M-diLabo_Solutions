@@ -19,21 +19,19 @@ public class FrontController {
     }
 
     @RequestMapping("/")
-    public String accueil(Model model) {
+    public String home(Model model) {
 
         List<PatientBean> patients = msBackendPatientManagement.patientsList();
-
         model.addAttribute("patients", patients);
 
         return "patients";
     }
 
     @RequestMapping("/patient-details")
-    public String patientInfos(@RequestParam String lastname,
-                               @RequestParam String firstname, Model model) {
+    public String patientInfos(@RequestParam String firstname,
+                               @RequestParam String lastname, Model model) {
 
-        PatientBean patient = msBackendPatientManagement.patientInfos(lastname, firstname);
-
+        PatientBean patient = msBackendPatientManagement.patientInfos(firstname, lastname);
         model.addAttribute("patient", patient);
 
         return "patient-details";
