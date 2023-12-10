@@ -1,9 +1,9 @@
 package com.mediLaboSolutions.frontendmanagement.proxies;
 
 import com.mediLaboSolutions.frontendmanagement.beans.PatientBean;
+import jakarta.validation.Valid;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -15,4 +15,11 @@ public interface MSBackendPatientManagement {
 
     @GetMapping(value = "/patient")
     PatientBean patientInfos(@RequestParam Integer id);
+
+    @PostMapping(value = "/patient")
+    PatientBean createPatient(@Valid @RequestBody PatientBean patientBean);
+
+    @PutMapping("/patient")
+    PatientBean updatePatient(@Valid @RequestBody PatientBean patientBean);
+
 }
