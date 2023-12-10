@@ -1,7 +1,6 @@
 package com.mediLaboSolutions.backendpatientmanagement.services;
 
 import com.mediLaboSolutions.backendpatientmanagement.DTO.PatientDTO;
-import com.mediLaboSolutions.backendpatientmanagement.exceptions.PatientAlreadyExistsException;
 import com.mediLaboSolutions.backendpatientmanagement.exceptions.PatientNotFoundException;
 import com.mediLaboSolutions.backendpatientmanagement.models.Patient;
 import com.mediLaboSolutions.backendpatientmanagement.repositories.PatientRepository;
@@ -74,28 +73,28 @@ class PatientServiceImplTest {
         PatientDTO patientDTO = new PatientDTO(PatientFaker.generate());
 
         //When we add the patient
-        when(patientRepository.existsById(any())).thenReturn(false);
+//        when(patientRepository.existsById(any())).thenReturn(false);
         patientService.saveNewPatient(patientDTO);
 
         //Then we verify if all is ok
-        verify(patientRepository, times(1)).existsById(any());
+//        verify(patientRepository, times(1)).existsById(any());
         verify(patientRepository, times(1)).save(any());
     }
 
-    @Test
-    void saveNewPatientButAlreadyExist() {
-        //Given an initial patient
-        PatientDTO patientDTO = new PatientDTO(PatientFaker.generate());
-
-        //When we add the patient
-        when(patientRepository.existsById(any())).thenReturn(true);
-        String response = assertThrows(PatientAlreadyExistsException.class, () -> patientService.saveNewPatient(patientDTO)).getMessage();
-
-        //Then we verify if all is ok
-        verify(patientRepository, times(1)).existsById(any());
-        verify(patientRepository, times(0)).save(any());
-        assertThat(response).contains("This patient already exist in data base.");
-    }
+//    @Test
+//    void saveNewPatientButAlreadyExist() {
+//        //Given an initial patient
+//        PatientDTO patientDTO = new PatientDTO(PatientFaker.generate());
+//
+//        //When we add the patient
+//        when(patientRepository.existsById(any())).thenReturn(true);
+//        String response = assertThrows(PatientAlreadyExistsException.class, () -> patientService.saveNewPatient(patientDTO)).getMessage();
+//
+//        //Then we verify if all is ok
+//        verify(patientRepository, times(1)).existsById(any());
+//        verify(patientRepository, times(0)).save(any());
+//        assertThat(response).contains("This patient already exist in data base.");
+//    }
 
     @Test
     void updatePatient() {

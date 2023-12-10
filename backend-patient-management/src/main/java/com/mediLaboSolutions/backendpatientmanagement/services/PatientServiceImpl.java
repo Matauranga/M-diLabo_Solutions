@@ -36,20 +36,20 @@ public class PatientServiceImpl implements PatientService {
     }
 
     public void saveNewPatient(PatientDTO patientDTO) {
-        if (patientRepository.existsById(patientDTO.getPatentId())) {
-            throw new PatientAlreadyExistsException("This patient already exist in data base.");
-        }
+//        if (patientRepository.existsById(patientDTO.getPatientId())) {
+//            throw new PatientAlreadyExistsException("This patient already exist in data base.");
+//        }
         Patient patient = new Patient();
         patient.update(patientDTO);
         patientRepository.save(patient);
     }
 
     public void updatePatient(PatientDTO updatedPatientDto) {
-        if (!patientRepository.existsById(updatedPatientDto.getPatentId())) {
+        if (!patientRepository.existsById(updatedPatientDto.getPatientId())) {
             throw new PatientNotFoundException("Patient doesn't exists");
         }
 
-        Patient updatedPatient = patientRepository.findById(updatedPatientDto.getPatentId())
+        Patient updatedPatient = patientRepository.findById(updatedPatientDto.getPatientId())
                 .orElseThrow()
                 .update(updatedPatientDto);
 
@@ -58,6 +58,6 @@ public class PatientServiceImpl implements PatientService {
 
     public void deletePatient(PatientDTO patientDTO) {
 
-        patientRepository.deleteById(patientDTO.getPatentId());
+        patientRepository.deleteById(patientDTO.getPatientId());
     }
 }

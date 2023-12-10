@@ -40,10 +40,10 @@ public class PatientController {
     }
 
     @PutMapping("/patient")
-    public ResponseEntity<PatientDTO> updatePatient(@Valid @RequestBody PatientDTO patientDTO) {
+    public PatientDTO updatePatient(@Valid @RequestBody PatientDTO patientDTO) {
         log.info("Ask to update patient : {} + {}", patientDTO.getFirstname(), patientDTO.getLastname());
-        patientService.updatePatient(patientDTO);
-        return new ResponseEntity<>(patientDTO, HttpStatus.OK);
+        patientService.updatePatient(patientDTO);;
+        return patientDTO;
     }
 
     @DeleteMapping("/patient")
@@ -52,6 +52,4 @@ public class PatientController {
         patientService.deletePatient(patientDTO);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
-
 }
