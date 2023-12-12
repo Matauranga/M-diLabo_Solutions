@@ -18,7 +18,4 @@ public interface PatientService {
     void saveNewPatient(NewPatientDTO newPatientDTO);
 
     void updatePatient(PatientToUpdateDTO patientToUpdateDTO);
-
-    void deletePatient(PatientDTO patientDTO);
-
 }

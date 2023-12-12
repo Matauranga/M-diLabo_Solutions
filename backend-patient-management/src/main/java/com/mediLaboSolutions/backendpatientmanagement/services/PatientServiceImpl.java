@@ -37,6 +37,7 @@ public class PatientServiceImpl implements PatientService {
     }
 
     public void saveNewPatient(NewPatientDTO newPatientDTO) {
+        //TODO : gerer si deja existant ou pas (encore) d'attribut pour?
 
         Patient patientToCreate = new Patient();
         patientToCreate.setFirstname(newPatientDTO.getFirstname());
@@ -59,10 +60,5 @@ public class PatientServiceImpl implements PatientService {
                 .update(patientToUpdateDTO);
 
         patientRepository.save(updatedPatient);
-    }
-
-    public void deletePatient(PatientDTO patientDTO) {
-
-        patientRepository.deleteById(patientDTO.getPatientId());
     }
 }
