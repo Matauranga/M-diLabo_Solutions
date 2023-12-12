@@ -12,8 +12,7 @@ import java.time.LocalDate;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class PatientBean {
-
+public class PatientToUpdateBean {
     Integer patientId;
     @NotBlank
     String firstname;

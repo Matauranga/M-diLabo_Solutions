@@ -1,12 +1,16 @@
 package com.mediLaboSolutions.frontendmanagement.controller;
 
+import com.mediLaboSolutions.frontendmanagement.beans.NewPatientBean;
 import com.mediLaboSolutions.frontendmanagement.beans.PatientBean;
+import com.mediLaboSolutions.frontendmanagement.beans.PatientToUpdateBean;
 import com.mediLaboSolutions.frontendmanagement.proxies.MSBackendPatientManagement;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -20,7 +24,7 @@ public class FrontController {
         this.msBackendPatientManagement = msBackendPatientManagement;
     }
 
-    @RequestMapping("/")
+    @GetMapping("/")
     public String home(Model model) {
 
         List<PatientBean> patients = msBackendPatientManagement.patientsList();
@@ -29,42 +33,40 @@ public class FrontController {
         return "patients";
     }
 
-    @RequestMapping("/patient/{id}")
+    @GetMapping("/patients/{id}")
     public String patientInfos(@PathVariable Integer id, Model model) {
 
-        PatientBean patient = msBackendPatientManagement.patientInfos(id);
-        patient.setPatientId(id);
+        final PatientBean patient = msBackendPatientManagement.patientInfos(id);
         model.addAttribute("patient", patient);
 
         return "patient-details";
     }
 
-    @RequestMapping("/create-patient")
+    @GetMapping("/patients/create")
     public String newPatient(Model model) {
 
-        PatientBean newPatient = new PatientBean();
-        model.addAttribute("newPatient", newPatient);
+        model.addAttribute("newPatient", new NewPatientBean());
 
         return "create-patient";
     }
 
-    @PostMapping("/create-patient")
-    public String createPatient(@Valid PatientBean patientBean, Model model) {
-        PatientBean patient = msBackendPatientManagement.createPatient(patientBean);
-        log.info("id : {}", patient.getPatientId());
-        model.addAttribute("patient", patient);
+    @PostMapping("/patients/create")
+    public String createPatient(@Valid NewPatientBean newPatientBean, Model model) {
 
-        return "patient-details";
+        msBackendPatientManagement.createPatient(newPatientBean);
+        log.info("Front --> Ask to create patient : {} + {}", newPatientBean.getFirstname(), newPatientBean.getLastname());
+
+        return home(model);
     }
 
-    @PostMapping("/patient")
-    public String editPatient(@Valid PatientBean updatePatient, Model model) {
+    @PostMapping("/patients/{id}")
+    public String editPatient(@PathVariable Integer id, @Valid PatientToUpdateBean patientToUpdateBean, Model model) {
 
+        log.info("Front --> Ask to update patient : {} + {}", patientToUpdateBean.getFirstname(), patientToUpdateBean.getLastname());
+        final PatientToUpdateBean updatedPatient = msBackendPatientManagement.updatePatient(String.valueOf(id), patientToUpdateBean);
+        model.addAttribute("patient", updatedPatient);
 
-        PatientBean patient = msBackendPatientManagement.updatePatient(updatePatient);
-        model.addAttribute("patient", patient);
-
-        return patientInfos(updatePatient.getPatientId(), model);
+        return patientInfos(id, model);
     }
 
 }

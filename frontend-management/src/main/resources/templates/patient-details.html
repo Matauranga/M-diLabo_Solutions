@@ -22,7 +22,7 @@
     <div class="card h-100">
         <div class="card-body">
 
-            <form id="updatePatient" action="#" th:action="@{/patient}" method="post"
+            <form id="updatePatient" action="#" th:action="@{|/patients/${patient.getPatientId()}|}" method="post"
                   th:object="${patient}">
                 <div class="row gutters">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
@@ -75,14 +75,6 @@
                             <label for="phonenumber">Phone</label>
                             <input type="text" class="form-control" id="phonenumber" th:field="*{phonenumber}"
                                    th:placeholder="${patient.getPhonenumber()}">
-                        </div>
-                    </div>
-
-                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                        <div class="form-group">
-                            <label for="id">id</label>
-                            <input type="text" class="form-control" id="id" th:field="*{patientId}"
-                                   th:placeholder="${patient.getPatientId()}" readonly>
                         </div>
                     </div>
 

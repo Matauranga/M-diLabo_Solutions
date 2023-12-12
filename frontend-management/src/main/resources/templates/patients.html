@@ -11,7 +11,7 @@
 
 <div style="margin: 100px 15%;">
 
-    <a type="button" class="open-button btn btn-primary float-end" th:href="@{/create-patient}">
+    <a type="button" class="open-button btn btn-primary float-end" th:href="@{|/patients/create|}">
         Add Patient
     </a>
 
@@ -26,29 +26,30 @@
                     <th>Gender</th>
                     <th>Address</th>
                     <th>Phone</th>
+                    <th>Details/Edit</th>
                 </tr>
                 </thead>
                 <tbody>
 
                 <tr th:each="patient: ${patients}" class="">
-                    <a th:href="@{|/patient-details?lastname=${patient.lastname}&firstname=${patient.firstname}|}">
 
-                        <td th:text="${patient.firstname + ' ' + patient.lastname}"></td>
-                        <td th:text="${patient.birthdate}"></td>
-                        <td th:text="${patient.gender}"></td>
-                        <td th:text="${patient.address}"></td>
-                        <td th:text="${patient.phonenumber}"></td>
-                    </a>
+                    <td th:text="${patient.firstname + ' ' + patient.lastname}"></td>
+                    <td th:text="${patient.birthdate}"></td>
+                    <td th:text="${patient.gender}"></td>
+                    <td th:text="${patient.address}"></td>
+                    <td th:text="${patient.phonenumber}"></td>
+                    <td>
+                        <a th:href="@{|/patients/${patient.getPatientId()}|}">
+                            Edit
+                        </a>
+                    </td>
 
                 </tr>
 
                 </tbody>
             </table>
-
         </div>
     </div>
-
-
 </div>
 </body>
 </html>
