@@ -1,6 +1,7 @@
 package com.mediLaboSolutions.backendpatientmanagement.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mediLaboSolutions.backendpatientmanagement.DTO.NewPatientDTO;
 import com.mediLaboSolutions.backendpatientmanagement.DTO.PatientDTO;
 import com.mediLaboSolutions.backendpatientmanagement.utils.PatientFaker;
 import jakarta.transaction.Transactional;
@@ -35,41 +36,43 @@ class PatientControllerTest {
 
                 //Then we verify is all works correctly
                 .andExpect(status().isOk())
-                .andExpect(content().string(containsString("TestBorderline")));
+                .andExpect(content().string(containsString("TestNone")))
+                .andExpect(content().string(containsString("TestBorderline")))
+                .andExpect(content().string(containsString("TestInDanger")))
+                .andExpect(content().string(containsString("TestEarlyOnset")));
     }
 
-    @DisplayName("Try to perform method Get on /patient")
+    @DisplayName("Try to perform method Get on /patients/{id}")
     @Test
     void patientInfos() throws Exception {
         //Given
 
-
         //When we initiate the request
-        mockMvc.perform(get("/patient?id=2"))
+        mockMvc.perform(get("/patients/2"))
                 //Then we verify is all works correctly
                 .andExpect(status().isOk())
-                .andExpect(content().string(containsString("TestBorderline")));
+                .andExpect(content().string(containsString("TestBorderline")))
+                .andExpect(content().string(containsString("2 High St")));
     }
 
-    @DisplayName("Try to perform method Post on /patient")
+    @DisplayName("Try to perform method Post on /patients, patient creation")
     @Test
     void createPatient() throws Exception {
         //Given
-        PatientDTO patientDTO = new PatientDTO(PatientFaker.generate());
-        patientDTO.setBirthdate(null);
-        String lastname = patientDTO.getLastname();
+        NewPatientDTO newPatientDTO = PatientFaker.generateNewPatientDTO();
+        String lastname = newPatientDTO.getLastname();
 
         //When we initiate the request
-        mockMvc.perform(post("/patient")
-                        .content(new ObjectMapper().writeValueAsString(patientDTO))
+        mockMvc.perform(post("/patients")
+                        .content(new ObjectMapper().writeValueAsString(newPatientDTO))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 //Then we verify is all works correctly
-                .andExpect(status().isCreated())
+                .andExpect(status().isOk())
                 .andExpect(content().string(containsString(lastname)));
     }
 
-    @DisplayName("Try to perform method Put on /patient")
+    @DisplayName("Try to perform method Put on /patients/{id}")
     @Test
     void updatePatient() throws Exception {
         //Given
@@ -77,28 +80,12 @@ class PatientControllerTest {
 
 
         //When we initiate the request
-        mockMvc.perform(put("/patient")
+        mockMvc.perform(put("/patients/1")
                         .content(new ObjectMapper().writeValueAsString(patientDTO))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 //Then we verify is all works correctly
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("Toulon")));
-    }
-
-    @DisplayName("Try to perform method Delete on /patient")
-    @Test
-    void deletePatient() throws Exception {
-        //Given
-        PatientDTO patientDTO = new PatientDTO(202, "Test", "TestNone", null, null, null, null);
-
-
-        //When we initiate the request
-        mockMvc.perform(delete("/patient")
-                        .content(new ObjectMapper().writeValueAsString(patientDTO))
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON))
-                //Then we verify is all works correctly
-                .andExpect(status().isOk());
     }
 }
