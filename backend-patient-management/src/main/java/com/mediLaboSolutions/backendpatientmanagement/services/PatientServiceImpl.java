@@ -1,7 +1,8 @@
 package com.mediLaboSolutions.backendpatientmanagement.services;
 
+import com.mediLaboSolutions.backendpatientmanagement.DTO.NewPatientDTO;
 import com.mediLaboSolutions.backendpatientmanagement.DTO.PatientDTO;
-import com.mediLaboSolutions.backendpatientmanagement.exceptions.PatientAlreadyExistsException;
+import com.mediLaboSolutions.backendpatientmanagement.DTO.PatientToUpdateDTO;
 import com.mediLaboSolutions.backendpatientmanagement.exceptions.PatientNotFoundException;
 import com.mediLaboSolutions.backendpatientmanagement.models.Patient;
 import com.mediLaboSolutions.backendpatientmanagement.repositories.PatientRepository;
@@ -35,23 +36,27 @@ public class PatientServiceImpl implements PatientService {
         return patientRepository.save(patientToCreate);
     }
 
-    public void saveNewPatient(PatientDTO patientDTO) {
-//        if (patientRepository.existsById(patientDTO.getPatientId())) {
-//            throw new PatientAlreadyExistsException("This patient already exist in data base.");
-//        }
-        Patient patient = new Patient();
-        patient.update(patientDTO);
-        patientRepository.save(patient);
+    public void saveNewPatient(NewPatientDTO newPatientDTO) {
+
+        Patient patientToCreate = new Patient();
+        patientToCreate.setFirstname(newPatientDTO.getFirstname());
+        patientToCreate.setLastname(newPatientDTO.getLastname());
+        patientToCreate.setBirthdate(newPatientDTO.getBirthdate());
+        patientToCreate.setGender(newPatientDTO.getGender());
+        patientToCreate.setAddress(newPatientDTO.getAddress());
+        patientToCreate.setPhonenumber(newPatientDTO.getPhonenumber());
+
+        patientRepository.save(patientToCreate);
     }
 
-    public void updatePatient(PatientDTO updatedPatientDto) {
-        if (!patientRepository.existsById(updatedPatientDto.getPatientId())) {
+    public void updatePatient(PatientToUpdateDTO patientToUpdateDTO) {
+        if (!patientRepository.existsById(patientToUpdateDTO.getPatientId())) {
             throw new PatientNotFoundException("Patient doesn't exists");
         }
 
-        Patient updatedPatient = patientRepository.findById(updatedPatientDto.getPatientId())
+        Patient updatedPatient = patientRepository.findById(patientToUpdateDTO.getPatientId())
                 .orElseThrow()
-                .update(updatedPatientDto);
+                .update(patientToUpdateDTO);
 
         patientRepository.save(updatedPatient);
     }

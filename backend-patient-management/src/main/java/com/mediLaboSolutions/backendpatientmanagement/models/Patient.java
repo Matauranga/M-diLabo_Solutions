@@ -1,6 +1,7 @@
 package com.mediLaboSolutions.backendpatientmanagement.models;
 
 import com.mediLaboSolutions.backendpatientmanagement.DTO.PatientDTO;
+import com.mediLaboSolutions.backendpatientmanagement.DTO.PatientToUpdateDTO;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,6 +13,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+
+;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -53,13 +56,14 @@ public class Patient {
                 '}';
     }
 
-    public Patient update(PatientDTO patientDTO) {
-        this.firstname = patientDTO.getFirstname();
-        this.lastname = patientDTO.getLastname();
-        this.birthdate = patientDTO.getBirthdate();
-        this.gender = patientDTO.getGender();
-        this.address = patientDTO.getAddress();
-        this.phonenumber = patientDTO.getPhonenumber();
+
+    public Patient update(PatientToUpdateDTO patientToUpdateDTO) {
+        this.firstname = patientToUpdateDTO.getFirstname();
+        this.lastname = patientToUpdateDTO.getLastname();
+        this.birthdate = patientToUpdateDTO.getBirthdate();
+        this.gender = patientToUpdateDTO.getGender();
+        this.address = patientToUpdateDTO.getAddress();
+        this.phonenumber = patientToUpdateDTO.getPhonenumber();
 
         return this;
     }

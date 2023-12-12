@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class PatientDTO {
+public class PatientToUpdateDTO {
 
     Integer patientId;
     @NotBlank
@@ -29,8 +29,7 @@ public class PatientDTO {
 
     String phonenumber;
 
-    public PatientDTO(Patient patient) {
-        this.patientId = patient.getId();
+    public PatientToUpdateDTO(Patient patient) {
         this.firstname = patient.getFirstname();
         this.lastname = patient.getLastname();
         this.birthdate = patient.getBirthdate();

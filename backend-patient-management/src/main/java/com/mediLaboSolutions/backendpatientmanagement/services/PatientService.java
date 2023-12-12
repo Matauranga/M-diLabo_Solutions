@@ -1,6 +1,8 @@
 package com.mediLaboSolutions.backendpatientmanagement.services;
 
+import com.mediLaboSolutions.backendpatientmanagement.DTO.NewPatientDTO;
 import com.mediLaboSolutions.backendpatientmanagement.DTO.PatientDTO;
+import com.mediLaboSolutions.backendpatientmanagement.DTO.PatientToUpdateDTO;
 import com.mediLaboSolutions.backendpatientmanagement.models.Patient;
 
 import java.util.List;
@@ -13,9 +15,9 @@ public interface PatientService {
 
     Patient savePatient(Patient patientToCreate);
 
-    void saveNewPatient(PatientDTO patientDTO);
+    void saveNewPatient(NewPatientDTO newPatientDTO);
 
-    void updatePatient(PatientDTO UpdatedPatient);
+    void updatePatient(PatientToUpdateDTO patientToUpdateDTO);
 
     void deletePatient(PatientDTO patientDTO);
 
