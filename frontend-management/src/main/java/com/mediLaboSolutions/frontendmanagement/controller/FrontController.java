@@ -51,7 +51,7 @@ public class FrontController {
     }
 
     @PostMapping("/patients/create")
-    public String createPatient(@Valid NewPatientBean newPatientBean, Model model) {
+    public String createNewPatient(@Valid NewPatientBean newPatientBean, Model model) {
 
         msBackendPatientManagement.createPatient(newPatientBean);
         log.info("Front --> Ask to create patient : {} + {}", newPatientBean.getFirstname(), newPatientBean.getLastname());
