@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@FeignClient(name = "MS-BACKEND-PATIENT-MANAGEMENT")
+@FeignClient(name = "MS-GATEWAY")
 public interface MSBackendPatientManagement {
 
     @GetMapping(value = "/patients")
