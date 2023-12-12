@@ -2,10 +2,12 @@ package com.mediLaboSolutions.frontendmanagement;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
 @EnableFeignClients("com.mediLaboSolutions.frontendmanagement")
+@EnableDiscoveryClient
 public class FrontendManagementApplication {
 
 	public static void main(String[] args) {
@@ -14,7 +16,4 @@ public class FrontendManagementApplication {
 
 }
 
-//TODO : finir les autres endpoint
-//TODO : faire les tests
-//TODO :
-//TODO : probleme de redirection apres update
+//TODO : voir pour les test si back non actif

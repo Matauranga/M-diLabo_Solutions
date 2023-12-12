@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: microservice-gateway
+
+server:
+  port: 9002
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:9102/eureka/
