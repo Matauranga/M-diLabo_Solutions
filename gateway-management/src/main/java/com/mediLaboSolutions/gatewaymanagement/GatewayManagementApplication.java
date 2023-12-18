@@ -13,4 +13,4 @@ public class GatewayManagementApplication {
     }
 
 }
-//TODO : mettre en place la gateaway
+//TODO : Chercher pour afficher dans les filtre le nom des requetes
