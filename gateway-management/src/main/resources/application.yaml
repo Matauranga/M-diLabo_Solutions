@@ -10,6 +10,11 @@ spring:
             - Path=/patients/**
           filters:
             - AddResponseHeader=X-Powered-By,Gio Gateway Service back
+  security:
+    user:
+      name: admin
+      password: admin
+
 server:
   port: 9002
 
