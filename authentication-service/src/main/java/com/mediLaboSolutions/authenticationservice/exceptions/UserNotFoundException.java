@@ -1,4 +1,4 @@
-package com.mediLaboSolutions.userservice.exceptions;
+package com.mediLaboSolutions.authenticationservice.exceptions;
 
 public class UserNotFoundException extends RuntimeException {
     public UserNotFoundException(String message) {
