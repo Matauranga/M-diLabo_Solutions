@@ -9,11 +9,17 @@ spring:
           predicates:
             - Path=/patients/**
           filters:
-            - AddResponseHeader=X-Powered-By,Gio Gateway Service back
-  security:
-    user:
-      name: admin
-      password: admin
+            - AuthenticationFilter
+        - id: MS-AUTH-SERVICE
+          uri: lb://MS-AUTH-SERVICE
+          predicates:
+            - Path=/auth/**
+          filters:
+            - AuthenticationFilter
+#  security:
+#    user:
+#      name: admin
+#      password: admin
 
 server:
   port: 9002
