@@ -17,36 +17,19 @@
     </div>
 
     <form
-            method="post"
-            role="form"
-            th:action="@{/login}"
-            class="form-horizontal"
-    >
+            method="post" role="form" class="form-horizontal" th:action="@{/signin}"
+            th:object="${authRequest}">
         <!-- Email input -->
         <div class="form-group my-4">
-            <input
-                    type="email"
-                    class="form-control"
-                    name="email"
-                    placeholder="&#xf0e0;   Email"
-                    style="font-family:Arial, FontAwesome"
-                    id="inputEmail"
-                    maxlength="30" required
-            />
+            <input type="text" class="form-control" id="inputLogin" th:field="*{username}"
+                   placeholder="login" maxlength="30" required>
         </div>
 
 
         <!-- Password input -->
         <div class="form-group my-4">
-            <input
-                    type="password"
-                    class="form-control"
-                    name="password"
-                    placeholder="&#xf023;   Password"
-                    style="font-family:Arial, FontAwesome"
-                    id="inputPassword"
-                    maxlength="30" required
-            />
+            <input type="text" class="form-control" id="inputPassword" th:field="*{password}"
+                   placeholder="Password" maxlength="30" required>
         </div>
 
         <!-- Submit button -->
