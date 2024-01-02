@@ -20,7 +20,8 @@ import java.util.List;
 @Controller
 public class FrontController {
 
-    private final MSBackendPatientManagement msBackendPatientManagement;
+    private final MSGateWay msGateWay;
+    private final AuthService authService;
 
     public FrontController(MSGateWay msGateWay, AuthService authService) {
         this.msGateWay = msGateWay;
