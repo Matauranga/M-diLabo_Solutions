@@ -14,8 +14,8 @@ spring:
           uri: lb://MS-AUTH-SERVICE
           predicates:
             - Path=/auth/**
-          filters:
-            - AuthenticationFilter
+#          filters:
+#            - AuthenticationFilter
 #  security:
 #    user:
 #      name: admin
