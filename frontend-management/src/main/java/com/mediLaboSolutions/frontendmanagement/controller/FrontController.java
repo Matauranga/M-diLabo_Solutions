@@ -85,10 +85,11 @@ public class FrontController {
         try {
             final String token = msGateWay.login(authRequest);
             authService.saveToken(token);
-
             return home(model);
+
         } catch (Exception e) {
             log.error(e.getMessage());
+
             return login(model); //todo gerer err
         }
     }
