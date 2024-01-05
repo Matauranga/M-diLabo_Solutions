@@ -14,12 +14,9 @@ spring:
           uri: lb://MS-AUTH-SERVICE
           predicates:
             - Path=/auth/**
-#          filters:
-#            - AuthenticationFilter
-#  security:
-#    user:
-#      name: admin
-#      password: admin
+
+  main:
+    web-application-type: reactive
 
 server:
   port: 9002
@@ -28,13 +25,3 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:9102/eureka/
-
-
-
-#
-#        - id: front-route
-#          uri: ${FRONT_ROUTE_URI:http://localhost:9002}
-#          predicates:
-#            - Path=/**
-#          filters:
-#            - AddResponseHeader=X-Powered-By,Gio Gateway Service front
