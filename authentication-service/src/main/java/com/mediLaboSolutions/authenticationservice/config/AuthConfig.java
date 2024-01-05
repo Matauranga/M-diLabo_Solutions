@@ -44,6 +44,12 @@ public class AuthConfig {
                                 .requestMatchers(authenticatedPaths).permitAll()
                                 .requestMatchers(toH2Console()).permitAll()
                 );
+//TODO gerer le log out
+//        http.logout(
+//                logout -> logout
+//                        .logoutRequestMatcher(new AntPathRequestMatcher("/auth/logout"))
+//                        .permitAll()
+//        );
 
         http.headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin));
 

@@ -9,11 +9,16 @@
 </head>
 <body>
 
+<form th:action="@{/logout}" method="POST">
+    <button class="btn btn-outline-primary" type="submit">Log Off</button>
+</form>
+
 <div style="margin: 100px 15%;">
 
-    <a type="button" class="open-button btn btn-primary float-end" th:href="@{|/patients/create|}">
-        Add Patient
-    </a>
+    <!--    TODO gerer le logout-->
+    <!--    <a type="button" class="open-button btn btn-primary float-end" th:href="@{|/patients/create|}">-->
+    <!--        Add Patient-->
+    <!--    </a>-->
 
     <div class="mt-5">
         <div class="table-responsive">

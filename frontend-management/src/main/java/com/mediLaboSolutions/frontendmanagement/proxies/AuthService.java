@@ -5,9 +5,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class AuthService {
 
-    // todo remove "123" !!!
     private String token;
-
 
     public void saveToken(String token) {
         if (token.isBlank()) {

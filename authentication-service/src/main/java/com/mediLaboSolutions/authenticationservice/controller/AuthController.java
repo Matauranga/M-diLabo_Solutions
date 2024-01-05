@@ -12,8 +12,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.http.HttpResponse;
-
 @RestController
 @RequestMapping("/auth")
 public class AuthController { //todo enlever register et validate
@@ -38,7 +36,6 @@ public class AuthController { //todo enlever register et validate
         }
 
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-
     }
 
     @GetMapping("/validate")

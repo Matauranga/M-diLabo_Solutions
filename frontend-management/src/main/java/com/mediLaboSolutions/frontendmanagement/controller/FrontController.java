@@ -94,4 +94,14 @@ public class FrontController {
         }
     }
 
+
+//TODO gerer le logout
+
+//    @PostMapping("/logout")
+//    public void logout(Model model) {
+//        msGateWay.logout();
+//
+//        //  return login(model);
+//    }
+
 }

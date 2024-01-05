@@ -11,6 +11,7 @@ public class AuthService {
 
     @Autowired
     private UserCredentialRepository repository;
+
     @Autowired
     private PasswordEncoder passwordEncoder;
 
