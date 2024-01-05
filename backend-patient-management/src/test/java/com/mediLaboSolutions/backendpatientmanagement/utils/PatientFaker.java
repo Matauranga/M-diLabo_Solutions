@@ -1,10 +1,9 @@
 package com.mediLaboSolutions.backendpatientmanagement.utils;
 
-import com.github.javafaker.Faker;
 import com.mediLaboSolutions.backendpatientmanagement.DTO.NewPatientDTO;
 import com.mediLaboSolutions.backendpatientmanagement.models.Patient;
+import net.datafaker.Faker;
 
-import java.time.LocalDate;
 import java.util.Locale;
 
 public class PatientFaker {
@@ -16,8 +15,8 @@ public class PatientFaker {
     public static Patient generatePatient() {
         Patient patient = new Patient();
 
-        patient.setFirstname(faker.address().firstName());
-        patient.setLastname(faker.address().lastName());
+        patient.setFirstname(faker.name().firstName());
+        patient.setLastname(faker.name().lastName());
         patient.setBirthdate(null);
         patient.setGender("M");
         patient.setAddress(faker.lorem().sentence());
@@ -29,8 +28,8 @@ public class PatientFaker {
     public static NewPatientDTO generateNewPatientDTO() {
         NewPatientDTO newPatientDTO = new NewPatientDTO();
 
-        newPatientDTO.setFirstname(faker.address().firstName());
-        newPatientDTO.setLastname(faker.address().lastName());
+        newPatientDTO.setFirstname(faker.name().firstName());
+        newPatientDTO.setLastname(faker.name().lastName());
         newPatientDTO.setBirthdate(null);
         newPatientDTO.setGender("M");
         newPatientDTO.setAddress(faker.lorem().sentence());
