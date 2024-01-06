@@ -1,4 +1,8 @@
 package com.mediLaboSolutions.backendnote.exceptions;
 
-public class NoteNotFoundException {
+public class NoteNotFoundException extends RuntimeException {
+    public NoteNotFoundException(String message) {
+        super(message);
+    }
+
 }
