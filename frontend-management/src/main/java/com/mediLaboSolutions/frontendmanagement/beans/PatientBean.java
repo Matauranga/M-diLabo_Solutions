@@ -15,17 +15,20 @@ import java.time.LocalDate;
 public class PatientBean {
 
     Integer patientId;
+
     @NotBlank
     String firstname;
+
     @NotBlank
     String lastname;
+
     @NotBlank
     LocalDate birthdate;
+
     @NotBlank
     String gender;
 
     String address;
 
     String phonenumber;
-
 }

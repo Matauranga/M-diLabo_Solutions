@@ -12,17 +12,21 @@ import java.time.LocalDate;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class NewPatientBean {    @NotBlank
+public class NewPatientBean {
+
+    @NotBlank
     String firstname;
+
     @NotBlank
     String lastname;
+
     @NotBlank
     LocalDate birthdate;
+
     @NotBlank
     String gender;
 
     String address;
 
     String phonenumber;
-
 }
