@@ -13,7 +13,7 @@ public interface NoteService {
 
     public Note createNewPatientNote(NoteDTO noteDTO);
 
-    public Note updatePatientNote(NoteDTO noteDTO);
+    public Note updatePatientNote(String noteId, NoteDTO noteDTO);
 
     public void deleteNote(String noteId);
 
