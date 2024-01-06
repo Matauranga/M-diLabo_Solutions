@@ -32,9 +32,9 @@ public class NoteController { //TODO revoir path avec Frank
     @GetMapping("/notes/{patientId}")
     public List<Note> getAllPatientNotes(@PathVariable String patientId) {
 
-        List<Note> note = noteRepository.findByPatientIdOrderByDateDesc(patientId);
+        List<Note> notes = noteRepository.findByPatientIdOrderByDateDesc(patientId);
 
-        return note;
+        return notes;
     }
 
     @PostMapping("/notes")
