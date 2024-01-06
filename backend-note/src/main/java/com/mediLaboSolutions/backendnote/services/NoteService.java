@@ -1,7 +1,7 @@
-package com.mediLaboSolutions.backendnote.service;
+package com.mediLaboSolutions.backendnote.services;
 
 import com.mediLaboSolutions.backendnote.DTO.NoteDTO;
-import com.mediLaboSolutions.backendnote.model.Note;
+import com.mediLaboSolutions.backendnote.models.Note;
 
 import java.util.List;
 

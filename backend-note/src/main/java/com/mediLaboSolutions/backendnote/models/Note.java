@@ -1,4 +1,4 @@
-package com.mediLaboSolutions.backendnote.model;
+package com.mediLaboSolutions.backendnote.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

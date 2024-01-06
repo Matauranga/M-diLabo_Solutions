@@ -1,11 +1,10 @@
-package com.mediLaboSolutions.backendnote.service;
+package com.mediLaboSolutions.backendnote.services;
 
 import com.mediLaboSolutions.backendnote.DTO.NoteDTO;
-import com.mediLaboSolutions.backendnote.model.Note;
-import com.mediLaboSolutions.backendnote.repository.NoteRepository;
+import com.mediLaboSolutions.backendnote.models.Note;
+import com.mediLaboSolutions.backendnote.repositories.NoteRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 public class NoteServiceImpl implements NoteService {
 

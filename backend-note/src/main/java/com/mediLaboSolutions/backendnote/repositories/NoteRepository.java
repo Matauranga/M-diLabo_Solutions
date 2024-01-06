@@ -1,6 +1,6 @@
-package com.mediLaboSolutions.backendnote.repository;
+package com.mediLaboSolutions.backendnote.repositories;
 
-import com.mediLaboSolutions.backendnote.model.Note;
+import com.mediLaboSolutions.backendnote.models.Note;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 

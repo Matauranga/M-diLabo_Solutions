@@ -2,8 +2,8 @@ package com.mediLaboSolutions.backendnote.controller;
 
 
 import com.mediLaboSolutions.backendnote.DTO.NoteDTO;
-import com.mediLaboSolutions.backendnote.model.Note;
-import com.mediLaboSolutions.backendnote.repository.NoteRepository;
+import com.mediLaboSolutions.backendnote.models.Note;
+import com.mediLaboSolutions.backendnote.repositories.NoteRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
