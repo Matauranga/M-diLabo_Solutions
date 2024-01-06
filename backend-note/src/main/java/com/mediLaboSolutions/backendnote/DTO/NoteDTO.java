@@ -12,5 +12,6 @@ import lombok.Setter;
 public class NoteDTO {
 
     private String patientId;
+
     private String content;
 }

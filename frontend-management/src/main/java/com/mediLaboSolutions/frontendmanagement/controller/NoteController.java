@@ -21,7 +21,6 @@ public class NoteController {
         this.patientController = patientController;
     }
 
-
     @PostMapping("/patients/{id}/notes")
     public String addNewNote(@PathVariable Integer id, @Valid NoteBean noteBean, Model model) {
 
@@ -31,6 +30,5 @@ public class NoteController {
 
         return patientController.patientInfos(id, model);
     }
-
 
 }

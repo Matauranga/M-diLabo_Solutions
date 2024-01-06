@@ -41,5 +41,4 @@ public class NoteController { //TODO revoir path avec Frank
         return new ResponseEntity<>(noteService.createNewPatientNote(noteDTO), HttpStatus.CREATED);
     }
 
-
 }

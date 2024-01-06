@@ -44,6 +44,4 @@ public class PatientController {
         patientService.updatePatient(patientToUpdateDTO);
         return patientToUpdateDTO;
     }
-
-
 }

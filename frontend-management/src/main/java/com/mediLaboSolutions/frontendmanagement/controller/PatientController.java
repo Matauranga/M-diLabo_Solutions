@@ -73,5 +73,4 @@ public class PatientController {
         return patientInfos(id, model);
     }
 
-
 }

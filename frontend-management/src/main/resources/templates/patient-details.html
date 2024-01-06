@@ -101,21 +101,14 @@
                             <th>Date</th>
                             <th>Doctor</th>
                             <th>content</th>
-                            <th>Details/Edit</th>
                         </tr>
                         </thead>
                         <tbody>
 
                         <tr th:each="note: ${notes}" class="">
-
                             <td th:text="${note.date}"></td>
-                            <td>Blabla</td>
+                            <td>Nom auteur des notes</td>
                             <td th:text="${note.content}"></td>
-                            <td>
-                                <!--                                <a th:href="@{|/patients/${patient.getPatientId()}|}">-->
-                                Edit
-                                <!--                                </a>-->
-                            </td>
                         </tr>
                         </tbody>
                     </table>

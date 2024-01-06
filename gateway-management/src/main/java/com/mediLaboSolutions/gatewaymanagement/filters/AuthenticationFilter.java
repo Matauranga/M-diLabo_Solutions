@@ -1,7 +1,6 @@
 package com.mediLaboSolutions.gatewaymanagement.filters;
 
 import com.mediLaboSolutions.gatewaymanagement.util.JwtUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.http.HttpHeaders;
@@ -10,16 +9,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class AuthenticationFilter extends AbstractGatewayFilterFactory<AuthenticationFilter.Config> {
 
-    @Autowired
-    private RouteValidator validator;
+    private final RouteValidator validator;
 
-    //    @Autowired
-//    private RestTemplate template;
-    @Autowired
-    private JwtUtil jwtUtil;
+    private final JwtUtil jwtUtil;
 
-    public AuthenticationFilter() {
+    public AuthenticationFilter(RouteValidator validator, JwtUtil jwtUtil) {
         super(Config.class);
+        this.validator = validator;
+        this.jwtUtil = jwtUtil;
     }
 
     @Override

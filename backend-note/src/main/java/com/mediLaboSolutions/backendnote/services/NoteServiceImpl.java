@@ -21,7 +21,7 @@ public class NoteServiceImpl implements NoteService {
     public Note getOneNote(String noteId) {
 
         return noteRepository.findById(noteId)
-                .orElseThrow(() -> new NoteNotFoundException("Note with the id : {noteId} is not found"));
+                .orElseThrow(() -> new NoteNotFoundException("Note not found"));
     }
 
 
