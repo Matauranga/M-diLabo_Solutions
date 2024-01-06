@@ -2,7 +2,6 @@ package com.mediLaboSolutions.backendpatientmanagement.controller;
 
 import com.mediLaboSolutions.backendpatientmanagement.DTO.NewPatientDTO;
 import com.mediLaboSolutions.backendpatientmanagement.DTO.PatientDTO;
-import com.mediLaboSolutions.backendpatientmanagement.DTO.PatientToUpdateDTO;
 import com.mediLaboSolutions.backendpatientmanagement.services.PatientService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -39,7 +38,7 @@ public class PatientController {
     }
 
     @PutMapping("/patients/{id}")
-    public PatientToUpdateDTO updatePatient(@PathVariable Integer id, @Valid @RequestBody PatientToUpdateDTO patientToUpdateDTO) {
+    public PatientDTO updatePatient(@PathVariable Integer id, @Valid @RequestBody PatientDTO patientToUpdateDTO) {
         log.info("Ask to update patient : {} + {}", patientToUpdateDTO.getFirstname(), patientToUpdateDTO.getLastname());
         patientToUpdateDTO.setPatientId(id);
         patientService.updatePatient(patientToUpdateDTO);

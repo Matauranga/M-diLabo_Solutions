@@ -2,7 +2,6 @@ package com.mediLaboSolutions.backendpatientmanagement.services;
 
 import com.mediLaboSolutions.backendpatientmanagement.DTO.NewPatientDTO;
 import com.mediLaboSolutions.backendpatientmanagement.DTO.PatientDTO;
-import com.mediLaboSolutions.backendpatientmanagement.DTO.PatientToUpdateDTO;
 import com.mediLaboSolutions.backendpatientmanagement.exceptions.PatientNotFoundException;
 import com.mediLaboSolutions.backendpatientmanagement.models.Patient;
 import com.mediLaboSolutions.backendpatientmanagement.repositories.PatientRepository;
@@ -49,7 +48,7 @@ public class PatientServiceImpl implements PatientService {
         patientRepository.save(patientToCreate);
     }
 
-    public void updatePatient(PatientToUpdateDTO patientToUpdateDTO) {
+    public void updatePatient(PatientDTO patientToUpdateDTO) {
         if (!patientRepository.existsById(patientToUpdateDTO.getPatientId())) {
             throw new PatientNotFoundException("Patient doesn't exists");
         }

@@ -16,15 +16,17 @@ public class NewPatientDTO {
 
     @NotBlank
     String firstname;
+
     @NotBlank
     String lastname;
+
     @NotBlank
     LocalDate birthdate;
+
     @NotBlank
     String gender;
 
     String address;
 
     String phonenumber;
-
 }

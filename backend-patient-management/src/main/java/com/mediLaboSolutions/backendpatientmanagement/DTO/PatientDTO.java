@@ -16,12 +16,16 @@ import java.time.LocalDate;
 public class PatientDTO {
 
     Integer patientId;
+
     @NotBlank
     String firstname;
+
     @NotBlank
     String lastname;
+
     @NotBlank
     LocalDate birthdate;
+
     @NotBlank
     String gender;
 
@@ -38,5 +42,4 @@ public class PatientDTO {
         this.address = patient.getAddress();
         this.phonenumber = patient.getPhonenumber();
     }
-
 }

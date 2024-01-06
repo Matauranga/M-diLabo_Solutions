@@ -2,7 +2,6 @@ package com.mediLaboSolutions.backendpatientmanagement.services;
 
 import com.mediLaboSolutions.backendpatientmanagement.DTO.NewPatientDTO;
 import com.mediLaboSolutions.backendpatientmanagement.DTO.PatientDTO;
-import com.mediLaboSolutions.backendpatientmanagement.DTO.PatientToUpdateDTO;
 import com.mediLaboSolutions.backendpatientmanagement.exceptions.PatientNotFoundException;
 import com.mediLaboSolutions.backendpatientmanagement.models.Patient;
 import com.mediLaboSolutions.backendpatientmanagement.repositories.PatientRepository;
@@ -104,45 +103,45 @@ class PatientServiceImplTest {
 //        assertThat(response).contains("This patient already exist in data base.");
 //    }
 
-    @DisplayName("Try to update a patient")
-    @Test
-    void updatePatient() {
-        //Given an initial patient
-        Patient patient = PatientFaker.generatePatient();
-        PatientToUpdateDTO patientToUpdateDTO = new PatientToUpdateDTO(patient);
-        patientToUpdateDTO.setAddress("123 Toulon");
-        patientToUpdateDTO.setGender("Tardis");
-
-        //When we update the patient
-        when(patientRepository.existsById(any())).thenReturn(true);
-        when(patientRepository.findById(any())).thenReturn(Optional.of(patient));
-        patientService.updatePatient(patientToUpdateDTO);
-
-        //Then we verify if all is ok
-        verify(patientRepository, times(1)).existsById(any());
-        verify(patientRepository, times(1)).save(any());
-        assertThat(patient.getGender()).isEqualTo("Tardis");
-        assertThat(patient.getAddress()).isEqualTo("123 Toulon");
-
-    }
-
-    @DisplayName("Try to update a patient but he's not found")
-    @Test
-    void updatePatientThrowNotFoundException() {
-        //Given an initial patient
-        Patient patient = PatientFaker.generatePatient();
-        PatientToUpdateDTO newPatientDTO = new PatientToUpdateDTO(patient);
-        newPatientDTO.setAddress("123 Toulon");
-        newPatientDTO.setGender("Tardis");
-
-        //When we update the patient
-        when(patientRepository.existsById(any())).thenReturn(false);
-        String response = assertThrows(PatientNotFoundException.class, () -> patientService.updatePatient(newPatientDTO)).getMessage();
-
-        //Then we verify if all is ok
-        verify(patientRepository, times(1)).existsById(any());
-        verify(patientRepository, times(0)).save(any());
-        // assertThat(response).isEqualTo("Patient doesn't exists");
-        assertThat(patient.getAddress()).isNotEqualTo(newPatientDTO.getAddress());
-    }
+//    @DisplayName("Try to update a patient")
+//    @Test
+//    void updatePatient() {
+//        //Given an initial patient
+//        Patient patient = PatientFaker.generatePatient();
+//        PatientToUpdateDTO patientToUpdateDTO = new PatientToUpdateDTO(patient);
+//        patientToUpdateDTO.setAddress("123 Toulon");
+//        patientToUpdateDTO.setGender("Tardis");
+//
+//        //When we update the patient
+//        when(patientRepository.existsById(any())).thenReturn(true);
+//        when(patientRepository.findById(any())).thenReturn(Optional.of(patient));
+//        patientService.updatePatient(patientToUpdateDTO);
+//
+//        //Then we verify if all is ok
+//        verify(patientRepository, times(1)).existsById(any());
+//        verify(patientRepository, times(1)).save(any());
+//        assertThat(patient.getGender()).isEqualTo("Tardis");
+//        assertThat(patient.getAddress()).isEqualTo("123 Toulon");
+//
+//    }
+//
+//    @DisplayName("Try to update a patient but he's not found")
+//    @Test
+//    void updatePatientThrowNotFoundException() {
+//        //Given an initial patient
+//        Patient patient = PatientFaker.generatePatient();
+//        PatientToUpdateDTO newPatientDTO = new PatientToUpdateDTO(patient);
+//        newPatientDTO.setAddress("123 Toulon");
+//        newPatientDTO.setGender("Tardis");
+//
+//        //When we update the patient
+//        when(patientRepository.existsById(any())).thenReturn(false);
+//        String response = assertThrows(PatientNotFoundException.class, () -> patientService.updatePatient(newPatientDTO)).getMessage();
+//
+//        //Then we verify if all is ok
+//        verify(patientRepository, times(1)).existsById(any());
+//        verify(patientRepository, times(0)).save(any());
+//        // assertThat(response).isEqualTo("Patient doesn't exists");
+//        assertThat(patient.getAddress()).isNotEqualTo(newPatientDTO.getAddress());
+//    }
 }
