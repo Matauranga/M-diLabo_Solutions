@@ -1,11 +1,9 @@
 package com.mediLaboSolutions.frontendmanagement.controller;
 
-import com.mediLaboSolutions.frontendmanagement.DTO.AuthRequest;
 import com.mediLaboSolutions.frontendmanagement.beans.NewPatientBean;
 import com.mediLaboSolutions.frontendmanagement.beans.NoteBean;
 import com.mediLaboSolutions.frontendmanagement.beans.PatientBean;
 import com.mediLaboSolutions.frontendmanagement.beans.PatientToUpdateBean;
-import com.mediLaboSolutions.frontendmanagement.proxies.AuthService;
 import com.mediLaboSolutions.frontendmanagement.proxies.MSGateWay;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -19,14 +17,12 @@ import java.util.List;
 
 @Slf4j
 @Controller
-public class FrontController {
+public class PatientController {
 
     private final MSGateWay msGateWay;
-    private final AuthService authService;
 
-    public FrontController(MSGateWay msGateWay, AuthService authService) {
+    public PatientController(MSGateWay msGateWay) {
         this.msGateWay = msGateWay;
-        this.authService = authService;
     }
 
     @GetMapping("/patients")
@@ -46,6 +42,7 @@ public class FrontController {
 
         model.addAttribute("patient", patient);
         model.addAttribute("notes", notes);
+        model.addAttribute("newNote", new NoteBean());
 
         return "patient-details";
     }
@@ -77,35 +74,5 @@ public class FrontController {
         return patientInfos(id, model);
     }
 
-    @GetMapping({"/", "/signin"})
-    public String login(Model model) {
-        model.addAttribute("authRequest", new AuthRequest());
-
-        return "login";
-    }
-
-    @PostMapping("/signin")
-    public String signin(AuthRequest authRequest, Model model) {
-        try {
-            final String token = msGateWay.login(authRequest);
-            authService.saveToken(token);
-            return home(model);
-
-        } catch (Exception e) {
-            log.error(e.getMessage());
-
-            return login(model); //todo gerer err
-        }
-    }
-
-
-//TODO gerer le logout
-
-//    @PostMapping("/logout")
-//    public void logout(Model model) {
-//        msGateWay.logout();
-//
-//        //  return login(model);
-//    }
 
 }

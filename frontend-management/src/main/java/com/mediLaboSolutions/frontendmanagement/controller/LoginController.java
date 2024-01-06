@@ -15,12 +15,12 @@ public class LoginController {
 
     private final MSGateWay msGateWay;
     private final AuthService authService;
-    private final FrontController frontController;
+    private final PatientController patientController;
 
-    public LoginController(MSGateWay msGateWay, AuthService authService, FrontController frontController) {
+    public LoginController(MSGateWay msGateWay, AuthService authService, PatientController patientController) {
         this.msGateWay = msGateWay;
         this.authService = authService;
-        this.frontController = frontController;
+        this.patientController = patientController;
     }
 
     @GetMapping({"/", "/signin"})
@@ -35,7 +35,7 @@ public class LoginController {
         try {
             final String token = msGateWay.login(authRequest);
             authService.saveToken(token);
-            return frontController.home(model);
+            return patientController.home(model);
 
         } catch (Exception e) {
             log.error(e.getMessage());

@@ -1,7 +1,6 @@
 package com.mediLaboSolutions.frontendmanagement.controller;
 
 import com.mediLaboSolutions.frontendmanagement.beans.NoteBean;
-import com.mediLaboSolutions.frontendmanagement.proxies.AuthService;
 import com.mediLaboSolutions.frontendmanagement.proxies.MSGateWay;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -15,13 +14,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class NoteController {
 
     private final MSGateWay msGateWay;
-    private final AuthService authService;
-    private final FrontController frontController;
+    private final PatientController patientController;
 
-    public NoteController(MSGateWay msGateWay, AuthService authService, FrontController frontController) {
+    public NoteController(MSGateWay msGateWay, PatientController patientController) {
         this.msGateWay = msGateWay;
-        this.authService = authService;
-        this.frontController = frontController;
+        this.patientController = patientController;
     }
 
 
@@ -32,7 +29,7 @@ public class NoteController {
         noteBean.setPatientId(String.valueOf(id));
         msGateWay.createNewNote(noteBean);
 
-        return frontController.patientInfos(id, model);
+        return patientController.patientInfos(id, model);
     }
 
 
