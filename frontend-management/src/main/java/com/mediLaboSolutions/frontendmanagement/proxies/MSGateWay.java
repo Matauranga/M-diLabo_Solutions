@@ -2,6 +2,7 @@ package com.mediLaboSolutions.frontendmanagement.proxies;
 
 import com.mediLaboSolutions.frontendmanagement.DTO.AuthRequest;
 import com.mediLaboSolutions.frontendmanagement.beans.NewPatientBean;
+import com.mediLaboSolutions.frontendmanagement.beans.NoteBean;
 import com.mediLaboSolutions.frontendmanagement.beans.PatientBean;
 import com.mediLaboSolutions.frontendmanagement.beans.PatientToUpdateBean;
 import jakarta.validation.Valid;
@@ -27,6 +28,9 @@ public interface MSGateWay {
 
     @PutMapping("/patients/{id}")
     PatientToUpdateBean updatePatient(@PathVariable String id, @Valid PatientToUpdateBean patientToUpdateBean);
+
+    @GetMapping(value = "/notes/{id}")
+    List<NoteBean> getPatientNotes(@PathVariable String id);
 
     @PostMapping(value = "/auth/login")
     String login(@Valid AuthRequest authRequest);

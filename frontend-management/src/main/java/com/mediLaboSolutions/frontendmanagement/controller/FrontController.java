@@ -2,6 +2,7 @@ package com.mediLaboSolutions.frontendmanagement.controller;
 
 import com.mediLaboSolutions.frontendmanagement.DTO.AuthRequest;
 import com.mediLaboSolutions.frontendmanagement.beans.NewPatientBean;
+import com.mediLaboSolutions.frontendmanagement.beans.NoteBean;
 import com.mediLaboSolutions.frontendmanagement.beans.PatientBean;
 import com.mediLaboSolutions.frontendmanagement.beans.PatientToUpdateBean;
 import com.mediLaboSolutions.frontendmanagement.proxies.AuthService;
@@ -41,7 +42,10 @@ public class FrontController {
     public String patientInfos(@PathVariable Integer id, Model model) {
 
         final PatientBean patient = msGateWay.patientInfos(id);
+        final List<NoteBean> notes = msGateWay.getPatientNotes(String.valueOf(id));
+
         model.addAttribute("patient", patient);
+        model.addAttribute("notes", notes);
 
         return "patient-details";
     }
