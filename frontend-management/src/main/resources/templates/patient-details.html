@@ -112,18 +112,32 @@
                             <td>Blabla</td>
                             <td th:text="${note.content}"></td>
                             <td>
-<!--                                <a th:href="@{|/patients/${patient.getPatientId()}|}">-->
-                                    Edit
-<!--                                </a>-->
+                                <!--                                <a th:href="@{|/patients/${patient.getPatientId()}|}">-->
+                                Edit
+                                <!--                                </a>-->
                             </td>
-
                         </tr>
-
                         </tbody>
                     </table>
                 </div>
             </div>
 
+
+            <form id="addNewNote" th:action="@{|/patients/${patient.getPatientId()}/notes|}" method="post"
+                  th:object="${newNote}">
+
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                        <label for="addNewNote">New note</label>
+                        <input type="text" class="form-control" th:field="*{content}">
+                    </div>
+                </div>
+                <div class="text-end">
+                    <button type="submit" id="submitNewNote" name="submit" class="btn btn-primary">Add Note
+                    </button>
+                </div>
+
+            </form>
 
         </div>
     </div>

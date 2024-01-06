@@ -17,6 +17,10 @@ import java.util.List;
 @FeignClient(name = "MS-GATEWAY")
 public interface MSGateWay {
 
+    /**
+     *  ALL ENDPOINT --> BACKEND PATIENT MANAGEMENT
+     */
+
     @GetMapping(value = "/patients")
     List<PatientBean> patientsList();
 
@@ -29,8 +33,23 @@ public interface MSGateWay {
     @PutMapping("/patients/{id}")
     PatientToUpdateBean updatePatient(@PathVariable String id, @Valid PatientToUpdateBean patientToUpdateBean);
 
+
+    /**
+     *  ALL ENDPOINT --> BACKEND NOTE
+     */
+
+
     @GetMapping(value = "/notes/{id}")
     List<NoteBean> getPatientNotes(@PathVariable String id);
+
+    @PostMapping(value = "/notes")
+    NoteBean createNewNote(@Valid NoteBean noteBean);
+
+
+    /**
+     *  ALL ENDPOINT --> AUTHENTICATION SERVICE
+     */
+
 
     @PostMapping(value = "/auth/login")
     String login(@Valid AuthRequest authRequest);
