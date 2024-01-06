@@ -10,6 +10,12 @@ spring:
             - Path=/patients/**
           filters:
             - AuthenticationFilter
+        - id: MS-BACKEND-NOTE
+          uri: lb://MS-BACKEND-NOTE
+          predicates:
+            - Path=/notes/**
+          filters:
+            - AuthenticationFilter
         - id: MS-AUTH-SERVICE
           uri: lb://MS-AUTH-SERVICE
           predicates:
