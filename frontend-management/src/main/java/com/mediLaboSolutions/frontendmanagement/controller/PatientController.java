@@ -3,7 +3,6 @@ package com.mediLaboSolutions.frontendmanagement.controller;
 import com.mediLaboSolutions.frontendmanagement.beans.NewPatientBean;
 import com.mediLaboSolutions.frontendmanagement.beans.NoteBean;
 import com.mediLaboSolutions.frontendmanagement.beans.PatientBean;
-import com.mediLaboSolutions.frontendmanagement.beans.PatientToUpdateBean;
 import com.mediLaboSolutions.frontendmanagement.proxies.MSGateWay;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -65,10 +64,10 @@ public class PatientController {
     }
 
     @PostMapping("/patients/{id}")
-    public String editPatient(@PathVariable Integer id, @Valid PatientToUpdateBean patientToUpdateBean, Model model) {
+    public String editPatient(@PathVariable Integer id, @Valid PatientBean patientToUpdateBean, Model model) {
 
         log.info("Front --> Ask to update patient : {} + {}", patientToUpdateBean.getFirstname(), patientToUpdateBean.getLastname());
-        final PatientToUpdateBean updatedPatient = msGateWay.updatePatient(String.valueOf(id), patientToUpdateBean);
+        final PatientBean updatedPatient = msGateWay.updatePatient(String.valueOf(id), patientToUpdateBean);
         model.addAttribute("patient", updatedPatient);
 
         return patientInfos(id, model);

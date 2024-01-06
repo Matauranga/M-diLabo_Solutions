@@ -4,7 +4,6 @@ import com.mediLaboSolutions.frontendmanagement.DTO.AuthRequest;
 import com.mediLaboSolutions.frontendmanagement.beans.NewPatientBean;
 import com.mediLaboSolutions.frontendmanagement.beans.NoteBean;
 import com.mediLaboSolutions.frontendmanagement.beans.PatientBean;
-import com.mediLaboSolutions.frontendmanagement.beans.PatientToUpdateBean;
 import jakarta.validation.Valid;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,7 +30,7 @@ public interface MSGateWay {
     NewPatientBean createPatient(@Valid NewPatientBean newPatientBean);
 
     @PutMapping("/patients/{id}")
-    PatientToUpdateBean updatePatient(@PathVariable String id, @Valid PatientToUpdateBean patientToUpdateBean);
+    PatientBean updatePatient(@PathVariable String id, @Valid PatientBean patientToUpdateBean);
 
 
     /**
