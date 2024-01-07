@@ -31,10 +31,6 @@ public class PatientServiceImpl implements PatientService {
         return new PatientDTO(patientRepository.findById(patientId).orElseThrow());
     }
 
-    public Patient savePatient(Patient patientToCreate) {
-        return patientRepository.save(patientToCreate);
-    }
-
     public void saveNewPatient(NewPatientDTO newPatientDTO) {
 
         Patient patientToCreate = new Patient();
