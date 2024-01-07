@@ -25,7 +25,7 @@ public class PatientController {
     }
 
     @GetMapping("/patients")
-    public String home(Model model) {
+    public String patientList(Model model) {
 
         List<PatientBean> patients = msGateWay.patientsList();
         model.addAttribute("patients", patients);
@@ -60,7 +60,7 @@ public class PatientController {
         msGateWay.createPatient(newPatientBean);
         log.info("Front --> Ask to create patient : {} + {}", newPatientBean.getFirstname(), newPatientBean.getLastname());
 
-        return home(model);
+        return patientList(model);
     }
 
     @PostMapping("/patients/{id}")

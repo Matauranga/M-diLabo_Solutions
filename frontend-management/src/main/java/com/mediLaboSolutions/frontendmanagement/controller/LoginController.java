@@ -35,7 +35,7 @@ public class LoginController {
         try {
             final String token = msGateWay.login(authRequest);
             authService.saveToken(token);
-            return patientController.home(model);
+            return patientController.patientList(model);
 
         } catch (Exception e) {
             log.error(e.getMessage());
