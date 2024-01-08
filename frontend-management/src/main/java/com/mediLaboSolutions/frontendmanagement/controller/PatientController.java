@@ -41,6 +41,7 @@ public class PatientController {
 
         model.addAttribute("patient", patient);
         model.addAttribute("notes", notes);
+        model.addAttribute("lineSeparator", System.lineSeparator());
         model.addAttribute("newNote", new NoteBean());
 
         return "patient-details";
