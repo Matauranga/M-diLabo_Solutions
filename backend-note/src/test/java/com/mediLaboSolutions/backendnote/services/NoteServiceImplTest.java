@@ -70,7 +70,7 @@ class NoteServiceImplTest {
 
         //When we try to get
         when(noteRepository.findByPatientIdOrderByDateDesc(anyString())).thenReturn(noteList);
-        List<Note> response = noteService.getAllPatientNotes("1");
+        List<Note> response = noteService.getAllPatientNotes("2");
 
         //Then we verify if all is ok
         verify(noteRepository, times(1)).findByPatientIdOrderByDateDesc(anyString());

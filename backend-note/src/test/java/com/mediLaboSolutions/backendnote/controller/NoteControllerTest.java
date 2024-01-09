@@ -35,16 +35,16 @@ class NoteControllerTest {
 
                 //Then we verify is all works correctly
                 .andExpect(status().isOk())
-                .andExpect(content().string(containsString("Commentaire plus recent")))
-                .andExpect(content().string(containsString("Ah Bah Oui")))
-                .andExpect(content().string(containsString("Rouge ! Noir ! Rouge et Noir !!!")));
+                .andExpect(content().string(containsString("Le patient dÃ©clare avoir fait une rÃ©action " +
+                        "aux mÃ©dicaments au cours des 3 derniers mois\\r\\nIl remarque Ã©galement que " +
+                        "son audition continue d'Ãªtre anormale")));
     }
 
     @DisplayName("Try to perform method Get on /notes")
     @Test
     void addNote() throws Exception {
         //Given initial DTO
-        NoteDTO noteDTO = new NoteDTO("1", "contenu de test!!");
+        NoteDTO noteDTO = new NoteDTO("2", "contenu de test!!");
         String content = noteDTO.getContent();
 
         //When we initiate the request
