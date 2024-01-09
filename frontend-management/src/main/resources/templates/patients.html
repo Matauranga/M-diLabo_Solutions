@@ -8,16 +8,13 @@
     <title>List Of All Patients</title>
 </head>
 <body>
-<!--    TODO gerer le logout-->
-<!--<form th:action="@{/logout}" method="POST">-->
-<!--    <button class="btn btn-outline-primary" type="submit">Log Off</button>-->
-<!--</form>-->
+
+<form th:action="@{/logout}" method="POST">
+    <button class="btn btn-outline-primary" type="submit">Logout</button>
+</form>
 
 <div style="margin: 100px 15%;">
 
-    <a type="button" class="open-button btn btn-primary float-end" th:href="@{|/patients/create|}">
-        Add Patient
-    </a>
 
     <div class="mt-5">
         <div class="table-responsive">
@@ -53,6 +50,10 @@
             </table>
         </div>
     </div>
+
+    <a type="button" class="open-button btn btn-primary float-end" th:href="@{|/patients/create|}">
+        Add Patient
+    </a>
 
 </div>
 </body>

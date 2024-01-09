@@ -99,14 +99,12 @@
                         <h5 class="text-left">Patient's Note</h5>
                         <tr class="bg-success text-white">
                             <th>Date</th>
-                            <th>Doctor</th>
                             <th>content</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr th:each="note: ${notes}" class="">
                             <td th:text="${ #dates.format(note.date, 'dd MMMM YYYY')}"></td>
-                            <td>Nom auteur des notes</td>
                             <td th:utext="${ #strings.replace(note.content, lineSeparator,'&lt;br /&gt;')}"></td>
                         </tr>
                         </tbody>
