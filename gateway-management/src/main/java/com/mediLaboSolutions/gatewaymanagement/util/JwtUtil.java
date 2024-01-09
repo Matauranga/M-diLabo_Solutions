@@ -11,7 +11,7 @@ import java.security.Key;
 @Component
 public class JwtUtil {
 
-    public static final String SECRET = "5367566B59703373367639792F423F4528482B4D6251655468576D5A71347437";
+    public static final String SECRET = "QicO2Lma84FRkfXtMDUMalt8B3e1LU7ePvAPmXA6BX2ElQGHqTm3iB4IrqvHspxJBaxLhVvc0kZXYAwB3yzNjHStOL5H241FKodOpwqxw7ez9v3FquEz5bDoNiz0IOiV";
 
     public void validateToken(final String token) {
         Jwts.parserBuilder().setSigningKey(getSignKey()).build().parseClaimsJws(token);
