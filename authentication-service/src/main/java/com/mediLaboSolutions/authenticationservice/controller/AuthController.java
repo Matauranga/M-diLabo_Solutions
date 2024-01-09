@@ -2,7 +2,7 @@ package com.mediLaboSolutions.authenticationservice.controller;
 
 
 import com.mediLaboSolutions.authenticationservice.DTO.AuthRequest;
-import com.mediLaboSolutions.authenticationservice.services.AuthService;
+import com.mediLaboSolutions.authenticationservice.services.JwtService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -15,21 +15,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/auth")
-public class AuthController { //todo enlever register et validate
+public class AuthController {
 
-    private final AuthService service;
+    final
+    JwtService jwtService;
 
     private final AuthenticationManager authenticationManager;
 
-    public AuthController(AuthService service, AuthenticationManager authenticationManager) {
-        this.service = service;
+    public AuthController(AuthenticationManager authenticationManager, JwtService jwtService) {
         this.authenticationManager = authenticationManager;
+        this.jwtService = jwtService;
     }
-
-//    @PostMapping("/register")
-//    public String addNewUser(@RequestBody UserCredential user) {
-//        return service.saveUser(user);
-//    }
 
     @PostMapping("/login")
     public ResponseEntity<String> getToken(@RequestBody AuthRequest authRequest) {
@@ -37,15 +33,9 @@ public class AuthController { //todo enlever register et validate
         Authentication authenticate = authenticationManager.authenticate(authentication);
 
         if (authenticate.isAuthenticated()) {
-            return ResponseEntity.ok(service.generateToken(authRequest.getUsername()));
+            return ResponseEntity.ok(jwtService.generateToken(authRequest.getUsername()));
         }
 
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
-
-//    @GetMapping("/validate")
-//    public String validateToken(@RequestParam("token") String token) {
-//        service.validateToken(token);
-//        return "Token is valid";
-//    }
 }
