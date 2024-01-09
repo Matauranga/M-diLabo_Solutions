@@ -12,11 +12,4 @@ public interface NoteService {
     public List<Note> getAllPatientNotes(String patientId);
 
     public Note createNewPatientNote(NoteDTO noteDTO);
-
-    public Note updatePatientNote(String noteId, NoteDTO noteDTO);
-
-    public void deleteNote(String noteId);
-
-    public void deleteAllPatientNotes(String patientId);
-
 }

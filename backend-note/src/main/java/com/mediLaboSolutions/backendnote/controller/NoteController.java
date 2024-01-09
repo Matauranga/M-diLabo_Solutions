@@ -13,19 +13,13 @@ import java.util.List;
 
 @Slf4j
 @RestController
-public class NoteController { //TODO revoir path avec Frank
+public class NoteController {
 
     final NoteService noteService;
 
     public NoteController(NoteService noteService) {
         this.noteService = noteService;
     }
-
-//    @GetMapping("/notes/{patientId}/{id}")//TODO frank
-//    public Note getNote(@PathVariable String patientId, @PathVariable String id) {
-//
-//        return noteService.getOneNote(id);
-//    }
 
     @GetMapping("/notes/{patientId}")
     public List<Note> getAllPatientNotes(@PathVariable String patientId) {
@@ -36,9 +30,6 @@ public class NoteController { //TODO revoir path avec Frank
     @PostMapping("/notes")
     public ResponseEntity<Note> addNote(@RequestBody NoteDTO noteDTO) {
 
-        // Note noteToCreate = noteService.createNewPatientNote(noteDTO); TODO Frank
-
         return new ResponseEntity<>(noteService.createNewPatientNote(noteDTO), HttpStatus.CREATED);
     }
-
 }
