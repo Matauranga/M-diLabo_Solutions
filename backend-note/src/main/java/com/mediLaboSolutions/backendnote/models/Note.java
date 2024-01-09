@@ -1,6 +1,5 @@
 package com.mediLaboSolutions.backendnote.models;
 
-import com.mediLaboSolutions.backendnote.DTO.NoteDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,13 +24,5 @@ public class Note {
     private String content;
 
     private Date date;
-
-    public Note update(NoteDTO noteDTO) {
-
-        this.content = noteDTO.getContent();
-        this.date = new Date();
-
-        return this;
-    }
 
 }
