@@ -52,9 +52,4 @@ public interface MSGateWay {
 
     @PostMapping(value = "/auth/login")
     String login(@Valid AuthRequest authRequest);
-
-//TODO gerer le logout
-//    @PostMapping(value = "/auth/logout")
-//    String logout();
-
 }
