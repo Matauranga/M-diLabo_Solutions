@@ -31,6 +31,7 @@
         <module>backend-patient-management</module>
         <module>backend-note</module>
         <module>frontend-management</module>
+        <module>backend-risk-assessment</module>
     </modules>
 
     <dependencyManagement>
