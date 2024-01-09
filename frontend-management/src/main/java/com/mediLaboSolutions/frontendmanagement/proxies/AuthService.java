@@ -14,6 +14,10 @@ public class AuthService {
         this.token = token;
     }
 
+    public void logout(){
+        this.token = null;
+    }
+
     public String getAuthorizationToken() {
         return token;
     }

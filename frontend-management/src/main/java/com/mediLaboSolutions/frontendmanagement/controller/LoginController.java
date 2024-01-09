@@ -44,14 +44,11 @@ public class LoginController {
         }
     }
 
+    @PostMapping("/logout")
+    public String logout(Model model) {
+        authService.logout();
 
-//TODO gerer le logout
-
-//    @PostMapping("/logout")
-//    public void logout(Model model) {
-//        msGateWay.logout();
-//
-//        //  return login(model);
-//    }
+        return login(model);
+    }
 
 }
