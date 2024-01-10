@@ -20,7 +20,7 @@ public class AssessmentRiskController {
         return assessmentRiskService.getResult(id);
     }
 
-    @GetMapping("/res/{id}")
+    @GetMapping("/risk-assessment/{id}")
     public AssessmentResultDTO getResult2(@PathVariable Integer id) {
 
         return assessmentRiskService.getResult2(id);
