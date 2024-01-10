@@ -11,11 +11,12 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Locale;
 
+import static com.mediLaboSolutions.backendriskassessment.constants.AllTriggerTerms.triggerTerms;
+import static com.mediLaboSolutions.backendriskassessment.constants.TermsRiskAssessmentResults.*;
+
 @Slf4j
 @Service
 public class AssessmentRiskServiceImpl implements AssessmentRiskService {
-    private static final List<String> triggerTerms = List.of("Hémoglobine A1C", "Microalbumine", "Taille",
-            "Poids", "Fume", "Anormal", "Cholestérol", "Vertiges", "Rechute", "Réaction", "Anticorps"); //TODO comprendre la liste des mots à fournir
 
     private final MSBackendPatientManagement msBackendPatientManagement;
 
@@ -30,16 +31,14 @@ public class AssessmentRiskServiceImpl implements AssessmentRiskService {
         return msBackendPatientManagement.patientInfos(id);
     }
 
-    private List<NoteBean> getAllPatientNotes(String id) {
-        return msBackendNote.getPatientNotes(id);
-    }
 
     private Boolean wordIsPresent(String word, List<NoteBean> noteBeanList) {
         return noteBeanList.stream().anyMatch(noteBean -> noteBean.getContent().toLowerCase(Locale.ROOT).contains(word.toLowerCase()));
     }
 
     private Integer getRiskScore(String id) {
-        return triggerTerms.stream().filter(mot -> wordIsPresent(mot, getAllPatientNotes(id))).toList().size();
+        List<NoteBean> patientNotesList = msBackendNote.getPatientNotes(id);
+        return triggerTerms.stream().filter(mot -> wordIsPresent(mot, patientNotesList)).toList().size();
     }
 
     public AssessmentResultDTO getRiskAssessmentResult(Integer patientId) {
@@ -51,26 +50,25 @@ public class AssessmentRiskServiceImpl implements AssessmentRiskService {
         log.info("risk score = {}", riskScore);
 
         if (riskScore < 2) {
-            return new AssessmentResultDTO("None");
+            return new AssessmentResultDTO(NONE);
 
         } else if (!patient.isUnder30YearsOld()) { // +30ans
             return switch (riskScore) {
-                case 2, 3, 4, 5 -> new AssessmentResultDTO("Borderline");
-                case 6, 7 -> new AssessmentResultDTO("InDanger");
-                default -> new AssessmentResultDTO("EarlyOnset"); // si plus de 8
+                case 2, 3, 4, 5 -> new AssessmentResultDTO(BORDERLINE);
+                case 6, 7 -> new AssessmentResultDTO(IN_DANGER);
+                default -> new AssessmentResultDTO(EARLY_ONSET); // si plus de 8
             };
-
-        } else if (patient.isMale()) { // -30ans + homme
+        } else if (patient.isMale()) {             // -30ans + homme
             return switch (riskScore) {
-                case 2 -> new AssessmentResultDTO("None");
-                case 3, 4 -> new AssessmentResultDTO("InDanger");
-                default -> new AssessmentResultDTO("EarlyOnset"); // si plus de 5
+                case 2 -> new AssessmentResultDTO(NONE);
+                case 3, 4 -> new AssessmentResultDTO(IN_DANGER);
+                default -> new AssessmentResultDTO(EARLY_ONSET); // si plus de 5
             };
-        } else { // -30ans + femme
+        } else {                                   // -30ans + femme
             return switch (riskScore) {
-                case 2, 3 -> new AssessmentResultDTO("None");
-                case 4, 5, 6 -> new AssessmentResultDTO("InDanger");
-                default -> new AssessmentResultDTO("EarlyOnset");// si plus de 7
+                case 2, 3 -> new AssessmentResultDTO(NONE);
+                case 4, 5, 6 -> new AssessmentResultDTO(IN_DANGER);
+                default -> new AssessmentResultDTO(EARLY_ONSET);// si plus de 7
             };
         }
     }
