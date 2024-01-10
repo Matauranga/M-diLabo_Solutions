@@ -4,6 +4,7 @@ import com.mediLaboSolutions.frontendmanagement.DTO.AuthRequest;
 import com.mediLaboSolutions.frontendmanagement.beans.NewPatientBean;
 import com.mediLaboSolutions.frontendmanagement.beans.NoteBean;
 import com.mediLaboSolutions.frontendmanagement.beans.PatientBean;
+import com.mediLaboSolutions.frontendmanagement.beans.RiskAssessmentBean;
 import jakarta.validation.Valid;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,7 +38,6 @@ public interface MSGateWay {
      *  ALL ENDPOINT --> BACKEND NOTE
      */
 
-
     @GetMapping(value = "/notes/{id}")
     List<NoteBean> getPatientNotes(@PathVariable String id);
 
@@ -49,7 +49,14 @@ public interface MSGateWay {
      *  ALL ENDPOINT --> AUTHENTICATION SERVICE
      */
 
-
     @PostMapping(value = "/auth/login")
     String login(@Valid AuthRequest authRequest);
+
+
+    /**
+     *  ALL ENDPOINT --> RISK ASSESSMENT SERVICE
+     */
+
+    @GetMapping(value = "/risk-assessment/{id}")
+    RiskAssessmentBean getRiskAssessmentResult(@PathVariable Integer id);
 }
