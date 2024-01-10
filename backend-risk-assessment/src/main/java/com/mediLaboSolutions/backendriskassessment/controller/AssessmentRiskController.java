@@ -14,15 +14,9 @@ public class AssessmentRiskController {
         this.assessmentRiskService = assessmentRiskService;
     }
 
-    @GetMapping("/result/{id}")
-    public AssessmentResultDTO getResult(@PathVariable Integer id) {
-
-        return assessmentRiskService.getResult(id);
-    }
-
     @GetMapping("/risk-assessment/{id}")
-    public AssessmentResultDTO getResult2(@PathVariable Integer id) {
+    public AssessmentResultDTO getRiskAssessmentResult(@PathVariable Integer id) {
 
-        return assessmentRiskService.getResult2(id);
+        return assessmentRiskService.getRiskAssessmentResult(id);
     }
 }
