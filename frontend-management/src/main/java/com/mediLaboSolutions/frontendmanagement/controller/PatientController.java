@@ -3,6 +3,7 @@ package com.mediLaboSolutions.frontendmanagement.controller;
 import com.mediLaboSolutions.frontendmanagement.beans.NewPatientBean;
 import com.mediLaboSolutions.frontendmanagement.beans.NoteBean;
 import com.mediLaboSolutions.frontendmanagement.beans.PatientBean;
+import com.mediLaboSolutions.frontendmanagement.beans.RiskAssessmentBean;
 import com.mediLaboSolutions.frontendmanagement.proxies.MSGateWay;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -38,9 +39,11 @@ public class PatientController {
 
         final PatientBean patient = msGateWay.patientInfos(id);
         final List<NoteBean> notes = msGateWay.getPatientNotes(String.valueOf(id));
+        final RiskAssessmentBean riskAssessment = msGateWay.getRiskAssessmentResult(id);
 
         model.addAttribute("patient", patient);
         model.addAttribute("notes", notes);
+        model.addAttribute("riskAssessment", riskAssessment);
         model.addAttribute("lineSeparator", System.lineSeparator());
         model.addAttribute("newNote", new NoteBean());
 
