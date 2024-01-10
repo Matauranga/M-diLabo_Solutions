@@ -16,6 +16,12 @@ spring:
             - Path=/notes/**
           filters:
             - AuthenticationFilter
+        - id: MS-ASSESSMENT-RISK
+          uri: lb://MS-ASSESSMENT-RISK
+          predicates:
+            - Path=/risk-assessment/**
+          filters:
+            - AuthenticationFilter
         - id: MS-AUTH-SERVICE
           uri: lb://MS-AUTH-SERVICE
           predicates:
