@@ -21,7 +21,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
-class AssessmentRiskServiceImplTest{
+class AssessmentRiskServiceImplTest {
     @InjectMocks
     AssessmentRiskServiceImpl assessmentRiskService;
     @Mock
@@ -31,7 +31,7 @@ class AssessmentRiskServiceImplTest{
 
     /**
      *                  FIRST SET OF TESTS Patient : Age : +30
-     *                                               Genre : No //TODO
+     *                                               Genre : Don't matter
      */
 
     @DisplayName("Get risk assessment for a patient (30 +) result : None")

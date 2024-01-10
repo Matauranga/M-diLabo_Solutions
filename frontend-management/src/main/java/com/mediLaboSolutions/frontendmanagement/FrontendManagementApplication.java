@@ -10,10 +10,8 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableDiscoveryClient
 public class FrontendManagementApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(FrontendManagementApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(FrontendManagementApplication.class, args);
+    }
 
 }
-
-//TODO : voir pour les test si back non actif

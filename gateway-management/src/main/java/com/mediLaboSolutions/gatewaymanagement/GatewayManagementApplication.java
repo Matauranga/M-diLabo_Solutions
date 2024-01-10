@@ -11,6 +11,4 @@ public class GatewayManagementApplication {
     public static void main(String[] args) {
         SpringApplication.run(GatewayManagementApplication.class, args);
     }
-
 }
-//TODO : Chercher pour afficher dans les filtre le nom des requetes
