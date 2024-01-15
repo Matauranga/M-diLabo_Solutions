@@ -1,38 +1,54 @@
 package com.mediLaboSolutions.frontendmanagement.controller;
 
+import com.mediLaboSolutions.frontendmanagement.proxies.MSGateWay;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import static org.hamcrest.CoreMatchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class PatientControllerTest { //todo mock feign
+class PatientControllerTest {
+
+    @Mock
+    MSGateWay msGateWay; //Todo frank
+
+    @InjectMocks
+    PatientController patientController;
 
     @Autowired
     private MockMvc mockMvc;
 
-    @Test
-    void home() throws Exception {
-        //Given
-
-        //When we initiate the request
-        mockMvc.perform(get("/"))
-
-                //Then we verify is all works correctly
-                .andExpect(status().isOk())
-                .andExpect(content().string(containsString("Patients List")));
+    @BeforeEach
+    void setUp() {
+        mockMvc = MockMvcBuilders.standaloneSetup(patientController).build();
     }
 
     @Test
-    void patientInfos() throws Exception {
+    void patientListPage() throws Exception {
+        //Given
+
+        //When we initiate the request
+        mockMvc.perform(get("/patients"))
+
+                //Then we verify is all works correctly
+                .andExpect(status().isOk())
+                .andExpect(view().name("patientList"));
+
+    }
+
+    @Test
+    void patientInfosPage() throws Exception {
         //Given
 
         //When we initiate the request
@@ -40,11 +56,11 @@ class PatientControllerTest { //todo mock feign
 
                 //Then we verify is all works correctly
                 .andExpect(status().isOk())
-                .andExpect(content().string(containsString("Fiche Patient")));
+                .andExpect(view().name("patient-details"));
     }
 
     @Test
-    void newPatient() throws Exception {
+    void newPatientPage() throws Exception {
         //Given
 
         //When we initiate the request
@@ -52,7 +68,7 @@ class PatientControllerTest { //todo mock feign
 
                 //Then we verify is all works correctly
                 .andExpect(status().isOk())
-                .andExpect(content().string(containsString("Create New Patient")));
+                .andExpect(view().name("create-patient"));
     }
 
     @Test
@@ -64,7 +80,7 @@ class PatientControllerTest { //todo mock feign
 
                 //Then we verify is all works correctly
                 .andExpect(status().is2xxSuccessful())
-                .andExpect(content().string(containsString("Patients List")));
+                .andExpect(view().name("patientList"));
     }
 
     @Test
@@ -76,6 +92,6 @@ class PatientControllerTest { //todo mock feign
 
                 //Then we verify is all works correctly
                 .andExpect(status().is2xxSuccessful())
-                .andExpect(content().string(containsString("Fiche Patient")));
+                .andExpect(view().name("patient-details"));
     }
 }

@@ -31,7 +31,7 @@ public class PatientController {
         List<PatientBean> patients = msGateWay.patientsList();
         model.addAttribute("patients", patients);
 
-        return "patients";
+        return "patientList";
     }
 
     @GetMapping("/patients/{id}")
@@ -64,7 +64,7 @@ public class PatientController {
         msGateWay.createPatient(newPatientBean);
         log.info("Front --> Ask to create patient : {} + {}", newPatientBean.getFirstname(), newPatientBean.getLastname());
 
-        return patientList(model);
+        return patientList(model);//Todo test si non null?
     }
 
     @PostMapping("/patients/{id}")
@@ -74,7 +74,7 @@ public class PatientController {
         final PatientBean updatedPatient = msGateWay.updatePatient(String.valueOf(id), patientToUpdateBean);
         model.addAttribute("patient", updatedPatient);
 
-        return patientInfos(id, model);
+        return patientInfos(id, model);//Todo test si non null?
     }
 
 }
