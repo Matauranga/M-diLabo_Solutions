@@ -40,7 +40,7 @@ public class LoginController {
         } catch (Exception e) {
             log.error(e.getMessage());
 
-            return login(model); //todo gerer err
+            return login(model);
         }
     }
 
