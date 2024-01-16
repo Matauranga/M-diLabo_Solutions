@@ -1,51 +1,42 @@
 package com.mediLaboSolutions.frontendmanagement.controller;
 
+import com.mediLaboSolutions.frontendmanagement.beans.NoteBean;
 import com.mediLaboSolutions.frontendmanagement.proxies.MSGateWay;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.ui.Model;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+import java.util.Date;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 
 @SpringBootTest
-@AutoConfigureMockMvc
 class NoteControllerTest {
 
     @Mock
-    MSGateWay msGateWay;
-
+    Model model;
     @Mock
-    PatientController patientController;
+    MSGateWay msGateWay;
 
     @InjectMocks
     NoteController noteController;
 
-    @Autowired
-    private MockMvc mockMvc;
-
-    @BeforeEach
-    void setUp() {
-        mockMvc = MockMvcBuilders.standaloneSetup(noteController).build();
-    }
 
     @Test
     void addNewNote() throws Exception {
         //Given
+        Integer patientId = 1;
+        NoteBean noteBean = new NoteBean("123", patientId.toString(), "", new Date());
 
-        //When we initiate the request
-        mockMvc.perform(post("/patients/1/notes"))
+        //When
+        when(msGateWay.createNewNote(any())).thenReturn(noteBean);
+        String response = noteController.addNewNote(patientId, noteBean, model);
 
-                //Then we verify is all works correctly
-                .andExpect(status().is2xxSuccessful())
-                .andExpect(view().name("patients/1/notes")/*.name("patient-details")*/);//TODO frank redirection
-
+        //Then
+        assertEquals(response, "redirect:/patients/{id}");
     }
 }
