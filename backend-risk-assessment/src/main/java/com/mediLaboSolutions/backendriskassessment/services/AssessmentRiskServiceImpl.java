@@ -58,7 +58,7 @@ public class AssessmentRiskServiceImpl implements AssessmentRiskService {
         if (riskScore < 2) {
             return new AssessmentResultDTO(NONE);
 
-        } else if (!patient.isUnder30YearsOld()) { // +30ans
+        } else if (patient.isUpper30YearsOld()) { // +30ans
             return switch (riskScore) {
                 case 2, 3, 4, 5 -> new AssessmentResultDTO(BORDERLINE);
                 case 6, 7 -> new AssessmentResultDTO(IN_DANGER);

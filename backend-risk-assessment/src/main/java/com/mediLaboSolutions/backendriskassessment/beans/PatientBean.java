@@ -43,8 +43,8 @@ public class PatientBean {
         return Period.between(birthDay, LocalDate.now()).getYears();
     }
 
-    public boolean isUnder30YearsOld() {
-        return getAge() < 30;
+    public boolean isUpper30YearsOld() {
+        return getAge() >= 30;
     }
 
     public boolean isMale() {
