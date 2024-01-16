@@ -37,6 +37,6 @@ class NoteControllerTest {
         String response = noteController.addNewNote(patientId, noteBean, model);
 
         //Then
-        assertEquals(response, "redirect:/patients/{id}");
+        assertEquals("redirect:/patients/{id}", response);
     }
 }

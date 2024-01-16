@@ -37,7 +37,7 @@ class LoginControllerTest {
         String response = loginController.login(model);
 
         //Then
-        assertEquals(response, "login");
+        assertEquals("login", response);
     }
 
     @Test
@@ -78,7 +78,7 @@ class LoginControllerTest {
         String response = loginController.logout(model);
 
         //Then
-        assertEquals(response, "redirect:/");
+        assertEquals("redirect:/", response);
 
 
     }
