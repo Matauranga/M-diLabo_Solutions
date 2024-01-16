@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Locale;
 
-import static com.mediLaboSolutions.backendriskassessment.constants.AllTriggerTerms.triggerTerms;
+import static com.mediLaboSolutions.backendriskassessment.constants.AllTriggerTerms.TRIGGER_TERMS;
 import static com.mediLaboSolutions.backendriskassessment.constants.TermsRiskAssessmentResults.*;
 
 @Slf4j
@@ -31,14 +31,20 @@ public class AssessmentRiskServiceImpl implements AssessmentRiskService {
         return msBackendPatientManagement.patientInfos(id);
     }
 
-
     private Boolean wordIsPresent(String word, List<NoteBean> noteBeanList) {
-        return noteBeanList.stream().anyMatch(noteBean -> noteBean.getContent().toLowerCase(Locale.ROOT).contains(word.toLowerCase()));
+        return noteBeanList
+                .stream()
+                .map(NoteBean::getContent)
+                .map(noteBean -> noteBean.toLowerCase(Locale.ROOT))
+                .anyMatch(noteBean -> noteBean.contains(word.toLowerCase()));
     }
 
     private Integer getRiskScore(String id) {
         List<NoteBean> patientNotesList = msBackendNote.getPatientNotes(id);
-        return triggerTerms.stream().filter(mot -> wordIsPresent(mot, patientNotesList)).toList().size();
+        return TRIGGER_TERMS.stream()
+                .filter(mot -> wordIsPresent(mot, patientNotesList))
+                .toList()
+                .size();
     }
 
     public AssessmentResultDTO getRiskAssessmentResult(Integer patientId) {

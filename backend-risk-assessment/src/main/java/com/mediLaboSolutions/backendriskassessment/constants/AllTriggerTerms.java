@@ -3,8 +3,7 @@ package com.mediLaboSolutions.backendriskassessment.constants;
 import java.util.List;
 
 public class AllTriggerTerms {
-    //TODO Frank : comprendre la liste des mots à fournir
-    public static final List<String> triggerTerms = List.of(
+    public static final List<String> TRIGGER_TERMS = List.of(
 
             "Hémoglobine A1C",
             "Microalbumine",
