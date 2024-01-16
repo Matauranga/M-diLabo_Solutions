@@ -14,7 +14,7 @@ public class AuthService {
         this.token = token;
     }
 
-    public void logout(){
+    public void logout() {
         this.token = null;
     }
 
