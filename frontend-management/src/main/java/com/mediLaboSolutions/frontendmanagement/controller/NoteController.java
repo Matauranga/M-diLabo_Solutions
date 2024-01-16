@@ -28,7 +28,7 @@ public class NoteController {
         noteBean.setPatientId(String.valueOf(id));
         msGateWay.createNewNote(noteBean);
 
-        return patientController.patientInfos(id, model);
+        return "redirect:/patients/{id}";
     }
 
 }

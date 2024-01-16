@@ -35,12 +35,12 @@ public class LoginController {
         try {
             final String token = msGateWay.login(authRequest);
             authService.saveToken(token);
-            return patientController.patientList(model);
+            return "redirect:/patients";
 
         } catch (Exception e) {
             log.error(e.getMessage());
 
-            return login(model);
+            return "redirect:/";
         }
     }
 
@@ -48,7 +48,7 @@ public class LoginController {
     public String logout(Model model) {
         authService.logout();
 
-        return login(model);
+        return "redirect:/";
     }
 
 }
