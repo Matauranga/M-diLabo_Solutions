@@ -1,6 +1,6 @@
 package com.mediLaboSolutions.backendriskassessment.constants;
 
-public class TermsRiskAssessmentResults {
+public final class TermsRiskAssessmentResults {
     public static final String NONE = "None";
 
     public static final String BORDERLINE = "Borderline";
