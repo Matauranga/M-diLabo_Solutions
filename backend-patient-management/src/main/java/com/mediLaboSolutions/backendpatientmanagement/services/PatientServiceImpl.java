@@ -19,6 +19,11 @@ public class PatientServiceImpl implements PatientService {
         this.patientRepository = patientRepository;
     }
 
+    /**
+     * Retrieves a list of all patients.
+     *
+     * @return a list of PatientDTO representing all patients
+     */
     public List<PatientDTO> getAllPatients() {
         return patientRepository.findAll()
                 .stream()
@@ -26,13 +31,23 @@ public class PatientServiceImpl implements PatientService {
                 .toList();
     }
 
+    /**
+     * Retrieves a patient by their ID.
+     *
+     * @param patientId the ID of the patient to retrieve
+     * @return the PatientDTO representing the patient
+     * @throws PatientNotFoundException if the patient with the given ID is not found
+     */
     public PatientDTO getPatientById(Integer patientId) {
-
         return new PatientDTO(patientRepository.findById(patientId).orElseThrow());
     }
 
+    /**
+     * Saves a new patient.
+     *
+     * @param newPatientDTO the NewPatientDTO containing information about the new patient
+     */
     public void saveNewPatient(NewPatientDTO newPatientDTO) {
-
         Patient patientToCreate = new Patient();
         patientToCreate.setFirstname(newPatientDTO.getFirstname());
         patientToCreate.setLastname(newPatientDTO.getLastname());
@@ -44,9 +59,15 @@ public class PatientServiceImpl implements PatientService {
         patientRepository.save(patientToCreate);
     }
 
+    /**
+     * Updates an existing patient.
+     *
+     * @param patientToUpdateDTO the PatientDTO containing updated information about the patient
+     * @throws PatientNotFoundException if the patient to update is not found
+     */
     public void updatePatient(PatientDTO patientToUpdateDTO) {
         if (!patientRepository.existsById(patientToUpdateDTO.getPatientId())) {
-            throw new PatientNotFoundException("Patient doesn't exists");
+            throw new PatientNotFoundException("Patient doesn't exist");
         }
 
         Patient updatedPatient = patientRepository.findById(patientToUpdateDTO.getPatientId())
