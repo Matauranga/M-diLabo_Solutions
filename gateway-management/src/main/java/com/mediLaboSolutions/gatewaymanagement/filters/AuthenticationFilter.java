@@ -19,18 +19,24 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
         this.jwtUtil = jwtUtil;
     }
 
+    /**
+     * Applies the authentication filter to the incoming request.
+     *
+     * @param config  the configuration for the filter (unused in this case)
+     * @return the GatewayFilter for authentication
+     */
     @Override
     public GatewayFilter apply(Config config) {
         return ((exchange, chain) -> {
             if (validator.isSecured.test(exchange.getRequest())) {
-                //header contains token or not
+                //Header contains token or not
                 if (!exchange.getRequest().getHeaders().containsKey(HttpHeaders.AUTHORIZATION)) {
-                    throw new RuntimeException("missing authorization header");
+                    throw new RuntimeException("Missing authorization header");
                 }
 
                 String authHeader = exchange.getRequest().getHeaders().get(HttpHeaders.AUTHORIZATION).get(0);
                 if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-                    throw new RuntimeException("authorization header not valid");
+                    throw new RuntimeException("Authorization header not valid");
                 }
 
                 authHeader = authHeader.substring(7);
@@ -39,7 +45,7 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
                     jwtUtil.validateToken(authHeader);
                 } catch (Exception e) {
                     System.out.println("invalid access...!");
-                    throw new RuntimeException("un authorized access to application");
+                    throw new RuntimeException("Unauthorized access to application");
                 }
             }
 
