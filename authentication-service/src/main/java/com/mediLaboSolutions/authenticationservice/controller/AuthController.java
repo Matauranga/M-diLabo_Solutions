@@ -29,9 +29,14 @@ public class AuthController {
         this.jwtService = jwtService;
     }
 
+    /**
+     * Handles HTTP POST request for obtaining a JWT token based on authentication credentials.
+     *
+     * @param authRequest the AuthRequest containing authentication credentials
+     * @return ResponseEntity containing the JWT token or an unauthorized status
+     */
     @PostMapping("/login")
     public ResponseEntity<String> getToken(@RequestBody AuthRequest authRequest) {
-
         try {
             var authentication = new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword());
             Authentication authenticate = authenticationManager.authenticate(authentication);

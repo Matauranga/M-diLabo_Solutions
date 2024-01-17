@@ -23,14 +23,25 @@ import static org.springframework.boot.autoconfigure.security.servlet.PathReques
 @EnableWebSecurity
 public class AuthConfig {
 
+    /**
+     * Provides a custom implementation of UserDetailsService.
+     *
+     * @return the CustomUserDetailsService
+     */
     @Bean
     public UserDetailsService userDetailsService() {
         return new CustomUserDetailsService();
     }
 
+    /**
+     * Configures security settings and defines URL patterns.
+     *
+     * @param http the HttpSecurity to configure
+     * @return the configured SecurityFilterChain
+     * @throws Exception if an error occurs during configuration
+     */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-
         AntPathRequestMatcher[] authenticatedPaths = Stream.of("/auth/register", "/auth/login", "/auth/validate")
                 .map(AntPathRequestMatcher::new)
                 .toArray(AntPathRequestMatcher[]::new);
@@ -50,11 +61,21 @@ public class AuthConfig {
         return http.build();
     }
 
+    /**
+     * Creates a BCryptPasswordEncoder bean for password encoding.
+     *
+     * @return the BCryptPasswordEncoder
+     */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
+    /**
+     * Provides an AuthenticationProvider using DaoAuthenticationProvider.
+     *
+     * @return the AuthenticationProvider
+     */
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
@@ -63,6 +84,13 @@ public class AuthConfig {
         return authenticationProvider;
     }
 
+    /**
+     * Retrieves the AuthenticationManager from the AuthenticationConfiguration.
+     *
+     * @param config the AuthenticationConfiguration
+     * @return the AuthenticationManager
+     * @throws Exception if an error occurs during retrieval
+     */
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();

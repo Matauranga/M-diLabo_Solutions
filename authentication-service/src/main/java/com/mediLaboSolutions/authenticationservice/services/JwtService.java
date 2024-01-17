@@ -13,12 +13,21 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Service class for generating JWT (JSON Web Token) tokens.
+ */
 @Component
 public class JwtService {
 
     @Value("${application.security.jwt.secret-key}")
     private String secretKey;
 
+    /**
+     * Generates a JWT token for the specified user.
+     *
+     * @param userName the username for which the token is generated
+     * @return the generated JWT token
+     */
     public String generateToken(String userName) {
         Map<String, Object> claims = new HashMap<>();
         return createToken(claims, userName);

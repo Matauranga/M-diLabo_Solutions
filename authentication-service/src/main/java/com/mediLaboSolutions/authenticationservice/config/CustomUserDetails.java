@@ -6,6 +6,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 
+/**
+ * Custom implementation of Spring Security's UserDetails interface.
+ * Represents user details retrieved from UserCredential.
+ */
 public class CustomUserDetails implements UserDetails {
 
     private final String username;
