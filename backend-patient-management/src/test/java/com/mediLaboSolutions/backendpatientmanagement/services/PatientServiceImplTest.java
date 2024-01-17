@@ -108,7 +108,7 @@ class PatientServiceImplTest {
         //Then we verify if all is ok
         verify(patientRepository, times(1)).existsById(any());
         verify(patientRepository, times(0)).save(any());
-        assertThat(response).isEqualTo("Patient doesn't exists");
+        assertThat(response).isEqualTo("Patient doesn't exist");
         assertThat(patient.getAddress()).isNotEqualTo(newPatientDTO.getAddress());
     }
 }
