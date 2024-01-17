@@ -47,8 +47,14 @@ public class AssessmentRiskServiceImpl implements AssessmentRiskService {
                 .size();
     }
 
+    /**
+     * Retrieves the risk assessment result for a specific patient.
+     *
+     * @param patientId the ID of the patient for whom to perform the risk assessment
+     * @return the AssessmentResultDTO representing the result of the risk assessment
+     */
+    @Override
     public AssessmentResultDTO getRiskAssessmentResult(Integer patientId) {
-
         PatientBean patient = getPatient(patientId);
         Integer riskScore = getRiskScore(patientId.toString());
         log.info("Genre patient = {}", patient.getGender());
@@ -57,7 +63,6 @@ public class AssessmentRiskServiceImpl implements AssessmentRiskService {
 
         if (riskScore < 2) {
             return new AssessmentResultDTO(NONE);
-
         } else if (patient.isUpper30YearsOld()) { // +30ans
             return switch (riskScore) {
                 case 2, 3, 4, 5 -> new AssessmentResultDTO(BORDERLINE);
