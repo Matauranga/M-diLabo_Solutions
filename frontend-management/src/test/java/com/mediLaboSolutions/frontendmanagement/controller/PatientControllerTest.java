@@ -67,7 +67,7 @@ class PatientControllerTest {
         //Given
 
         //When
-        String response = patientController.createNewPatient(new NewPatientBean(), model);
+        String response = patientController.createNewPatient(new NewPatientBean());
 
         //Then
         assertEquals("redirect:/patients", response);

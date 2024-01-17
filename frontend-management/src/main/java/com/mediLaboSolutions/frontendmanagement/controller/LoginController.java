@@ -23,31 +23,46 @@ public class LoginController {
         this.patientController = patientController;
     }
 
+    /**
+     * Handles GET requests for the login page.
+     *
+     * @param model the Spring MVC model
+     * @return the logical view name for the login page
+     */
     @GetMapping({"/", "/signin"})
     public String login(Model model) {
         model.addAttribute("authRequest", new AuthRequest());
-
         return "login";
     }
 
+    /**
+     * Handles POST requests for user authentication and redirects to the patient page on success.
+     *
+     * @param authRequest the authentication request data
+     * @param model       the Spring MVC model
+     * @return the logical view name for redirecting to the patient page or the login page on failure
+     */
     @PostMapping("/signin")
     public String signin(AuthRequest authRequest, Model model) {
         try {
             final String token = msGateWay.login(authRequest);
             authService.saveToken(token);
             return "redirect:/patients";
-
         } catch (Exception e) {
             log.error(e.getMessage());
-
             return "redirect:/";
         }
     }
 
+    /**
+     * Handles POST requests for user logout and redirects to the login page.
+     *
+     * @param model the Spring MVC model
+     * @return the logical view name for redirecting to the login page
+     */
     @PostMapping("/logout")
     public String logout(Model model) {
         authService.logout();
-
         return "redirect:/";
     }
 

@@ -25,18 +25,28 @@ public class PatientController {
         this.msGateWay = msGateWay;
     }
 
+    /**
+     * Handles GET requests to retrieve the list of patients.
+     *
+     * @param model the Spring MVC model
+     * @return the logical view name for displaying the patient list
+     */
     @GetMapping("/patients")
     public String patientList(Model model) {
-
         List<PatientBean> patients = msGateWay.patientsList();
         model.addAttribute("patients", patients);
-
         return "patientList";
     }
 
+    /**
+     * Handles GET requests to retrieve patient details by ID.
+     *
+     * @param id    the ID of the patient
+     * @param model the Spring MVC model
+     * @return the logical view name for displaying patient details
+     */
     @GetMapping("/patients/{id}")
     public String patientInfos(@PathVariable Integer id, Model model) {
-
         final PatientBean patient = msGateWay.patientInfos(id);
         final List<NoteBean> notes = msGateWay.getPatientNotes(String.valueOf(id));
         final RiskAssessmentBean riskAssessment = msGateWay.getRiskAssessmentResult(id);
@@ -50,31 +60,44 @@ public class PatientController {
         return "patient-details";
     }
 
+    /**
+     * Handles GET requests to display the form for creating a new patient.
+     *
+     * @param model the Spring MVC model
+     * @return the logical view name for the create-patient form
+     */
     @GetMapping("/patients/create")
     public String newPatient(Model model) {
-
         model.addAttribute("newPatient", new NewPatientBean());
-
         return "create-patient";
     }
 
+    /**
+     * Handles POST requests to create a new patient.
+     *
+     * @param newPatientBean the data for the new patient
+     * @return the logical view name for redirecting to the patient list
+     */
     @PostMapping("/patients/create")
-    public String createNewPatient(@Valid NewPatientBean newPatientBean, Model model) {
-
+    public String createNewPatient(@Valid NewPatientBean newPatientBean) {
         msGateWay.createPatient(newPatientBean);
         log.info("Front --> Ask to create patient : {} + {}", newPatientBean.getFirstname(), newPatientBean.getLastname());
-
         return "redirect:/patients";
     }
 
+    /**
+     * Handles POST requests to update an existing patient.
+     *
+     * @param id                   the ID of the patient to be updated
+     * @param patientToUpdateBean the updated data for the patient
+     * @param model                the Spring MVC model
+     * @return the logical view name for redirecting to the updated patient details
+     */
     @PostMapping("/patients/{id}")
     public String editPatient(@PathVariable Integer id, @Valid PatientBean patientToUpdateBean, Model model) {
-
         log.info("Front --> Ask to update patient : {} + {}", patientToUpdateBean.getFirstname(), patientToUpdateBean.getLastname());
         final PatientBean updatedPatient = msGateWay.updatePatient(String.valueOf(id), patientToUpdateBean);
         model.addAttribute("patient", updatedPatient);
-
         return "redirect:/patients/{id}";
     }
-
 }

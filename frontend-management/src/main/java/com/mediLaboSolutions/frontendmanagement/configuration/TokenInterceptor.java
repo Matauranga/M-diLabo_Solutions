@@ -16,6 +16,11 @@ public class TokenInterceptor implements RequestInterceptor {
         this.authService = authService;
     }
 
+    /**
+     * Applies the interceptor logic to add the Authorization token to the request header.
+     *
+     * @param requestTemplate the template representing the outgoing Feign request
+     */
     @Override
     public void apply(RequestTemplate requestTemplate) {
         var token = authService.getAuthorizationToken();

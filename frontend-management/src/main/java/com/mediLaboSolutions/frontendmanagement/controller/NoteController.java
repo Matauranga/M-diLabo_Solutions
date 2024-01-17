@@ -21,14 +21,19 @@ public class NoteController {
         this.patientController = patientController;
     }
 
+    /**
+     * Handles POST requests for creating a new note for a specific patient.
+     *
+     * @param id       the patient ID for whom the note is created
+     * @param noteBean the data for the new note
+     * @param model    the Spring MVC model
+     * @return the logical view name for redirecting to the patient details page
+     */
     @PostMapping("/patients/{id}/notes")
     public String addNewNote(@PathVariable Integer id, @Valid NoteBean noteBean, Model model) {
-
         log.info("Front --> Ask to create note");
         noteBean.setPatientId(String.valueOf(id));
         msGateWay.createNewNote(noteBean);
-
         return "redirect:/patients/{id}";
     }
-
 }
