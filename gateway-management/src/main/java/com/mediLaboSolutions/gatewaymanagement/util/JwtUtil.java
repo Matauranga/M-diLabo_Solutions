@@ -11,6 +11,7 @@ import java.security.Key;
 @Component
 public class JwtUtil {
 
+    //Todo frank
     public static final String SECRET = "QicO2Lma84FRkfXtMDUMalt8B3e1LU7ePvAPmXA6BX2ElQGHqTm3iB4IrqvHspxJBaxLhVvc0kZXYAwB3yzNjHStOL5H241FKodOpwqxw7ez9v3FquEz5bDoNiz0IOiV";
 
     public void validateToken(final String token) {
