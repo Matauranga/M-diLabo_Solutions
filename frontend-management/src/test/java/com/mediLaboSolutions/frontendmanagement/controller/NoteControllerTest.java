@@ -1,7 +1,8 @@
 package com.mediLaboSolutions.frontendmanagement.controller;
 
 import com.mediLaboSolutions.frontendmanagement.beans.NoteBean;
-import com.mediLaboSolutions.frontendmanagement.proxies.MSGateWay;
+import com.mediLaboSolutions.frontendmanagement.proxies.MSGatewayNoteService;
+import com.mediLaboSolutions.frontendmanagement.proxies.MSGatewayPatientService;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -18,9 +19,7 @@ import static org.mockito.Mockito.when;
 class NoteControllerTest {
 
     @Mock
-    Model model;
-    @Mock
-    MSGateWay msGateWay;
+    MSGatewayNoteService msGatewayNoteService;
 
     @InjectMocks
     NoteController noteController;
@@ -33,8 +32,8 @@ class NoteControllerTest {
         NoteBean noteBean = new NoteBean("123", patientId.toString(), "", new Date());
 
         //When
-        when(msGateWay.createNewNote(any())).thenReturn(noteBean);
-        String response = noteController.addNewNote(patientId, noteBean, model);
+        when(msGatewayNoteService.createNewNote(any())).thenReturn(noteBean);
+        String response = noteController.addNewNote(patientId, noteBean);
 
         //Then
         assertEquals("redirect:/patients/{id}", response);

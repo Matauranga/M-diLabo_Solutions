@@ -4,7 +4,9 @@ import com.mediLaboSolutions.frontendmanagement.beans.NewPatientBean;
 import com.mediLaboSolutions.frontendmanagement.beans.NoteBean;
 import com.mediLaboSolutions.frontendmanagement.beans.PatientBean;
 import com.mediLaboSolutions.frontendmanagement.beans.RiskAssessmentBean;
-import com.mediLaboSolutions.frontendmanagement.proxies.MSGateWay;
+import com.mediLaboSolutions.frontendmanagement.proxies.MSGatewayNoteService;
+import com.mediLaboSolutions.frontendmanagement.proxies.MSGatewayPatientService;
+import com.mediLaboSolutions.frontendmanagement.proxies.MSGatewayRiskAssessmentService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -19,10 +21,16 @@ import java.util.List;
 @Controller
 public class PatientController {
 
-    private final MSGateWay msGateWay;
+    private final MSGatewayPatientService msGatewayPatientService;
 
-    public PatientController(MSGateWay msGateWay) {
-        this.msGateWay = msGateWay;
+    private final MSGatewayNoteService msGatewayNoteService;
+
+    private final MSGatewayRiskAssessmentService msGatewayRiskAssessmentService;
+
+    public PatientController(MSGatewayPatientService msGatewayPatientService, MSGatewayNoteService msGatewayNoteService, MSGatewayRiskAssessmentService msGatewayRiskAssessmentService) {
+        this.msGatewayPatientService = msGatewayPatientService;
+        this.msGatewayNoteService = msGatewayNoteService;
+        this.msGatewayRiskAssessmentService = msGatewayRiskAssessmentService;
     }
 
     /**
@@ -33,7 +41,7 @@ public class PatientController {
      */
     @GetMapping("/patients")
     public String patientList(Model model) {
-        List<PatientBean> patients = msGateWay.patientsList();
+        List<PatientBean> patients = msGatewayPatientService.patientsList();
         model.addAttribute("patients", patients);
         return "patientList";
     }
@@ -47,9 +55,9 @@ public class PatientController {
      */
     @GetMapping("/patients/{id}")
     public String patientInfos(@PathVariable Integer id, Model model) {
-        final PatientBean patient = msGateWay.patientInfos(id);
-        final List<NoteBean> notes = msGateWay.getPatientNotes(String.valueOf(id));
-        final RiskAssessmentBean riskAssessment = msGateWay.getRiskAssessmentResult(id);
+        final PatientBean patient = msGatewayPatientService.patientInfos(id);
+        final List<NoteBean> notes = msGatewayNoteService.getPatientNotes(String.valueOf(id));
+        final RiskAssessmentBean riskAssessment = msGatewayRiskAssessmentService.getRiskAssessmentResult(id);
 
         model.addAttribute("patient", patient);
         model.addAttribute("notes", notes);
@@ -80,7 +88,7 @@ public class PatientController {
      */
     @PostMapping("/patients/create")
     public String createNewPatient(@Valid NewPatientBean newPatientBean) {
-        msGateWay.createPatient(newPatientBean);
+        msGatewayPatientService.createPatient(newPatientBean);
         log.info("Front --> Ask to create patient : {} + {}", newPatientBean.getFirstname(), newPatientBean.getLastname());
         return "redirect:/patients";
     }
@@ -96,7 +104,7 @@ public class PatientController {
     @PostMapping("/patients/{id}")
     public String editPatient(@PathVariable Integer id, @Valid PatientBean patientToUpdateBean, Model model) {
         log.info("Front --> Ask to update patient : {} + {}", patientToUpdateBean.getFirstname(), patientToUpdateBean.getLastname());
-        final PatientBean updatedPatient = msGateWay.updatePatient(String.valueOf(id), patientToUpdateBean);
+        final PatientBean updatedPatient = msGatewayPatientService.updatePatient(String.valueOf(id), patientToUpdateBean);
         model.addAttribute("patient", updatedPatient);
         return "redirect:/patients/{id}";
     }

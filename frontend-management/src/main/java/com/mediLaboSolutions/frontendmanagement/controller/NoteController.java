@@ -1,11 +1,10 @@
 package com.mediLaboSolutions.frontendmanagement.controller;
 
 import com.mediLaboSolutions.frontendmanagement.beans.NoteBean;
-import com.mediLaboSolutions.frontendmanagement.proxies.MSGateWay;
+import com.mediLaboSolutions.frontendmanagement.proxies.MSGatewayNoteService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -13,12 +12,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class NoteController {
 
-    private final MSGateWay msGateWay;
-    private final PatientController patientController;
+    private final MSGatewayNoteService msGatewayNoteService;
 
-    public NoteController(MSGateWay msGateWay, PatientController patientController) {
-        this.msGateWay = msGateWay;
-        this.patientController = patientController;
+    public NoteController(MSGatewayNoteService msGatewayNoteService) {
+        this.msGatewayNoteService = msGatewayNoteService;
     }
 
     /**
@@ -26,14 +23,13 @@ public class NoteController {
      *
      * @param id       the patient ID for whom the note is created
      * @param noteBean the data for the new note
-     * @param model    the Spring MVC model
      * @return the logical view name for redirecting to the patient details page
      */
     @PostMapping("/patients/{id}/notes")
-    public String addNewNote(@PathVariable Integer id, @Valid NoteBean noteBean, Model model) {
+    public String addNewNote(@PathVariable Integer id, @Valid NoteBean noteBean) {
         log.info("Front --> Ask to create note");
         noteBean.setPatientId(String.valueOf(id));
-        msGateWay.createNewNote(noteBean);
+        msGatewayNoteService.createNewNote(noteBean);
         return "redirect:/patients/{id}";
     }
 }

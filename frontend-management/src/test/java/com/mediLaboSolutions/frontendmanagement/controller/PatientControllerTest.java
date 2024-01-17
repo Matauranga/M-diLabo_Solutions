@@ -2,7 +2,7 @@ package com.mediLaboSolutions.frontendmanagement.controller;
 
 import com.mediLaboSolutions.frontendmanagement.beans.NewPatientBean;
 import com.mediLaboSolutions.frontendmanagement.beans.PatientBean;
-import com.mediLaboSolutions.frontendmanagement.proxies.MSGateWay;
+import com.mediLaboSolutions.frontendmanagement.proxies.MSGatewayPatientService;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -18,7 +18,7 @@ class PatientControllerTest {
     Model model;
 
     @Mock
-    MSGateWay msGateWay;
+    MSGatewayPatientService msGatewayPatientService;
 
     @InjectMocks
     PatientController patientController;
