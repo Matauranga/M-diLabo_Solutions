@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Feign client interface for communicating with the Patient Service through the Gateway.
  */
-@FeignClient(name = "MS-GATEWAY")
+@FeignClient(name = "MS-GATEWAY-PATIENT", url = "${ms.gateway.url}")
 public interface MSGatewayPatientService {
 
     /**

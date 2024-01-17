@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 /**
  * Feign client interface for communicating with the Risk Assessment Service through the Gateway.
  */
-@FeignClient(name = "MS-GATEWAY")
+@FeignClient(name = "MS-GATEWAY-RISK", url = "${ms.gateway.url}")
 public interface MSGatewayRiskAssessmentService {
 
     /**

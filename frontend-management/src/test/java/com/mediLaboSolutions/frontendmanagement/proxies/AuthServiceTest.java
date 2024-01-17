@@ -33,7 +33,7 @@ class AuthServiceTest {
 
         //Then
         assertNull(authService.getAuthorizationToken());
-        assertEquals("no token found", response);
+        assertEquals("No token found", response);
     }
 
 

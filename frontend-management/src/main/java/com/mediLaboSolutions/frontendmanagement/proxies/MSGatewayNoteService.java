@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Feign client interface for communicating with the Note Service through the Gateway.
  */
-@FeignClient(name = "MS-GATEWAY")
+@FeignClient(name = "MS-GATEWAY-NOTE",url = "${ms.gateway.url}")
 public interface MSGatewayNoteService {
 
     /**

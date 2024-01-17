@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 /**
  * Feign client interface for communicating with the Authentication Service through the Gateway.
  */
-@FeignClient(name = "MS-GATEWAY")
+@FeignClient(name = "MS-GATEWAY-AUTH", url = "${ms.gateway.url}")
 public interface MSGatewayAuthenticationService {
 
     /**
