@@ -1,0 +1,70 @@
+version: '3'
+services:
+  #  mongodb:
+  #    image : mongo
+  #    container_name: mongodb
+  #
+  #
+  #  postgres:
+  #    image: postgres:14-alpine
+  #    ports:
+  #      - 5432:5432
+  #    environment:
+  #      - POSTGRES_PASSWORD=S3cret
+  #      - POSTGRES_USER=citizix_user
+  #      - POSTGRES_DB=citizix_db
+
+  eureka-server:
+    image: ms-eureka-server
+    ports:
+      - "9102:9102"
+
+  gateway-management:
+    image: ms-gateway
+    ports:
+      - "9002:9002"
+    depends_on:
+      - eureka-server
+
+  authentication-service:
+    image: ms-authentication
+    ports:
+      - "9004:9004"
+    depends_on:
+      - eureka-server
+
+  backend-patient-management:
+    image: ms-backend-patient
+    ports:
+      - "9001:9001"
+    depends_on:
+      - eureka-server
+
+  backend-note:
+    image: ms-backend-note
+    ports:
+      - "9005:9005"
+    environment:
+      -
+    env_file:
+      - .env
+    depends_on:
+      - eureka-server
+      - mongodb
+
+  backend-risk-assessment:
+    image: ms-backend-risk
+    ports:
+      - "9006:9006"
+    depends_on:
+      - eureka-server
+      - backend-patient-management
+      - backend-note
+
+  frontend-management:
+    image: ms-frontend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - eureka-server
+      - gateway-management
