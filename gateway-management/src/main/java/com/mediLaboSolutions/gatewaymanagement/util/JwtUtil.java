@@ -16,7 +16,6 @@ public class JwtUtil {
      * The secret key used for JWT signing and validation.
      *
      */
-    //TODO: Frank
     @Value("${jwt.secret}")
     private String SECRET;
 

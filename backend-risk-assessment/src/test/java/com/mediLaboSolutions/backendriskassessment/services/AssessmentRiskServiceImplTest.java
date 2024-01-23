@@ -258,12 +258,10 @@ class AssessmentRiskServiceImplTest {
         var terms = AllTriggerTerms.TRIGGER_TERMS;
         List<NoteBean> noteList = new ArrayList<>();
 
-        if (nbrOfTriggers < 0 || nbrOfTriggers > terms.size()) {
-            throw new RuntimeException("Problem with the number of terms requested.");
-        }
         for (int i = 0; i < nbrOfTriggers; i++) {
-//            NoteBean note = new NoteBean("123" + i, patientId, terms.get((terms.size()%i), new Date()); todo frank
-            NoteBean note = new NoteBean("123" + i, patientId.toString(), terms.get(i), new Date());
+            int termId = i % terms.size();
+
+            NoteBean note = new NoteBean("123" + i, patientId.toString(), terms.get(termId), new Date());
             noteList.add(note);
         }
         return noteList;

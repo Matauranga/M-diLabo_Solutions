@@ -22,6 +22,7 @@
         <openapi.version>2.3.0</openapi.version>
         <jjwt.version>0.11.5</jjwt.version>
         <datafaker.version>1.6.0</datafaker.version>
+        <jacoco-version>0.8.11</jacoco-version>
     </properties>
 
     <modules>
@@ -32,6 +33,7 @@
         <module>backend-note</module>
         <module>frontend-management</module>
         <module>backend-risk-assessment</module>
+        <module>coverage-module</module>
     </modules>
 
     <dependencyManagement>
@@ -86,7 +88,7 @@
         <dependency>
             <groupId>org.jacoco</groupId>
             <artifactId>jacoco-maven-plugin</artifactId>
-            <version>0.8.11</version>
+            <version>${jacoco-version}</version>
         </dependency>
     </dependencies>
 
@@ -104,74 +106,23 @@
                     </excludes>
                 </configuration>
             </plugin>
-            <!--todo frank-->
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.11</version>
+                <version>${jacoco-version}</version>
                 <executions>
-                    <!-- Configuration pour la phase de préparation -->
                     <execution>
-                        <id>prepare-agent</id>
+                        <id>jacoco-initialize</id>
                         <goals>
                             <goal>prepare-agent</goal>
                         </goals>
                     </execution>
-
-                    <!-- Configuration pour la génération des rapports -->
                     <execution>
                         <id>jacoco-report</id>
-                        <phase>verify</phase>
+                        <phase>test</phase>
                         <goals>
                             <goal>report</goal>
                         </goals>
-                    </execution>
-
-                    <execution>
-                        <id>merge-coverage-reports</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>merge</goal>
-                        </goals>
-                        <configuration>
-                            <destFile>${project.build.directory}/jacoco-merged.exec</destFile>
-                            <fileSets>
-                                <fileSet>
-                                    <directory>${project.basedir}/authentication-service/target</directory>
-                                    <includes>
-                                        <include>*.exec</include>
-                                    </includes>
-                                </fileSet>
-
-                                <fileSet>
-                                    <directory>${project.basedir}/backend-note/target</directory>
-                                    <includes>
-                                        <include>*.exec</include>
-                                    </includes>
-                                </fileSet>
-
-                                <fileSet>
-                                    <directory>${project.basedir}/backend-patient-management/target</directory>
-                                    <includes>
-                                        <include>*.exec</include>
-                                    </includes>
-                                </fileSet>
-
-                                <fileSet>
-                                    <directory>${project.basedir}/backend-risk-assessment/target</directory>
-                                    <includes>
-                                        <include>*.exec</include>
-                                    </includes>
-                                </fileSet>
-
-                                <fileSet>
-                                    <directory>${project.basedir}/frontend-management/target</directory>
-                                    <includes>
-                                        <include>*.exec</include>
-                                    </includes>
-                                </fileSet>
-                            </fileSets>
-                        </configuration>
                     </execution>
                 </executions>
             </plugin>
