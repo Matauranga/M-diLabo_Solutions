@@ -6,4 +6,4 @@ COPY target/backend-note-*.jar app.jar
 
 EXPOSE 9005
 
-CMD ["java", "-jar", "app.jar"]
+CMD ["java", "-jar", "app.jar", "--spring.config.name=application-docker"]
