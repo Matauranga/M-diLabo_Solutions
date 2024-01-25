@@ -6,4 +6,4 @@ COPY target/gateway-management-*.jar app.jar
 
 EXPOSE 9002
 
-CMD ["java", "-jar", "app.jar"]
+CMD ["java", "-jar", "app.jar", "--spring.config.name=application-docker"]
