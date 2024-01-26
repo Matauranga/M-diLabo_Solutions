@@ -9,9 +9,9 @@ services:
       - "3306:3306"
     healthcheck:
       test: [ "CMD", "curl", "-f", "http://mysql:3306/actuator/health" ]
-      interval: 5s
+      interval: 15s
       timeout: 2s
-      retries: 12
+      retries: 5
 
   eureka-server:
     image: ms-eureka-server
@@ -22,9 +22,9 @@ services:
         condition: service_healthy
     healthcheck:
       test: [ "CMD", "curl", "-f", "http://eureka-server:9102/actuator/health" ]
-      interval: 5s
+      interval: 15s
       timeout: 2s
-      retries: 12
+      retries: 5
 
   authentication-service:
     image: ms-authentication
@@ -35,9 +35,9 @@ services:
         condition: service_healthy
     healthcheck:
       test: [ "CMD", "curl", "-f", "http://authentication-service:9004/actuator/health" ]
-      interval: 5s
+      interval: 15s
       timeout: 2s
-      retries: 12
+      retries: 5
 
   gateway-management:
     image: ms-gateway
@@ -48,34 +48,54 @@ services:
         condition: service_healthy
     healthcheck:
       test: [ "CMD", "curl", "-f", "http://gateway-management:9002/actuator/health" ]
-      interval: 5s
+      interval: 15s
       timeout: 2s
-      retries: 12
+      retries: 5
 
   backend-patient-management:
     image: ms-backend-patient
     ports:
       - "9001:9001"
     depends_on:
-      - eureka-server
-      - mysql
+      eureka-server:
+        condition: service_healthy
+      mysql:
+        condition: service_healthy
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://backend-patient-management:9001/actuator/health" ]
+      interval: 15s
+      timeout: 2s
+      retries: 5
 
   backend-note:
     image: ms-backend-note
     ports:
       - "9005:9005"
     depends_on:
-      - eureka-server
-      - mongodb
+      eureka-server:
+        condition: service_healthy
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://backend-note:9005/actuator/health" ]
+      interval: 15s
+      timeout: 2s
+      retries: 5
 
   backend-risk-assessment:
     image: ms-backend-risk
     ports:
       - "9006:9006"
     depends_on:
-      - eureka-server
-      - backend-patient-management
-      - backend-note
+      eureka-server:
+        condition: service_healthy
+      backend-note:
+        condition: service_healthy
+      backend-patient-management:
+        condition: service_healthy
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://backend-risk-assessment:9006/actuator/health" ]
+      interval: 15s
+      timeout: 2s
+      retries: 5
 
   frontend-management:
     image: ms-frontend
@@ -85,4 +105,6 @@ services:
       gateway-management:
         condition: service_healthy
       eureka-server:
+        condition: service_healthy
+      backend-risk-assessment:
         condition: service_healthy
