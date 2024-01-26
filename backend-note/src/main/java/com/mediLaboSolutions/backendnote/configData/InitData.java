@@ -4,7 +4,10 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mediLaboSolutions.backendnote.models.Note;
 import com.mediLaboSolutions.backendnote.repositories.NoteRepository;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -15,6 +18,9 @@ import java.util.List;
 @Component
 public class InitData implements CommandLineRunner {
 
+    @Value("${spring.profiles.active:defaultProfile}")
+    private String activeProfile;
+
     private final NoteRepository noteRepository;
 
     public InitData(NoteRepository noteRepository) {
@@ -22,24 +28,30 @@ public class InitData implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
 
-        TypeReference<List<Note>> typeReference = new TypeReference<>() {
-        };
-        ObjectMapper objectMapper = new ObjectMapper();
+        if (activeProfile.contains("test")) {
 
-        InputStream inputStream = TypeReference.class.getResourceAsStream("/notesData.json");
+            log.info("|||||||||||||  Initialisation des données désactivé pour le profil 'test'.  |||||||||||||");
+        } else {
 
-        try {
-            noteRepository.deleteAll();
+            TypeReference<List<Note>> typeReference = new TypeReference<>() {
+            };
+            ObjectMapper objectMapper = new ObjectMapper();
 
-            List<Note> entities = objectMapper.readValue(inputStream, typeReference);
+            InputStream inputStream = TypeReference.class.getResourceAsStream("/notesData.json");
 
-            noteRepository.saveAll(entities);
-            log.info("|||||||||||||  Initialisation des données réussie!  |||||||||||||");
+            try {
+                noteRepository.deleteAll();
 
-        } catch (Exception e) {
-            log.error("|||||||||||||  Erreur lors de l'initialisation des données : " + e.getMessage() + "  |||||||||||||");
+                List<Note> entities = objectMapper.readValue(inputStream, typeReference);
+
+                noteRepository.saveAll(entities);
+                log.info("|||||||||||||  Initialisation des données réussie!  |||||||||||||");
+
+            } catch (Exception e) {
+                log.error("|||||||||||||  Erreur lors de l'initialisation des données : " + e.getMessage() + "  |||||||||||||");
+            }
         }
     }
 }

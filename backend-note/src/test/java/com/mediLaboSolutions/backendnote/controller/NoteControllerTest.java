@@ -1,60 +1,60 @@
 package com.mediLaboSolutions.backendnote.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mediLaboSolutions.backendnote.DTO.NoteDTO;
+import com.mediLaboSolutions.backendnote.models.Note;
+import com.mediLaboSolutions.backendnote.services.NoteService;
+import com.mediLaboSolutions.backendnote.utils.NoteFaker;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
-import static org.hamcrest.CoreMatchers.containsString;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.*;
 
 @SpringBootTest
-@AutoConfigureMockMvc
-//@Transactional // TODO Frank : err transactional
 class NoteControllerTest {
+    @Mock
+    private NoteService noteService;
 
-    @Autowired
-    private MockMvc mockMvc;
+    @InjectMocks
+    private NoteController noteController;
 
-    @DisplayName("Try to perform method Get on /notes/{patientId}")
     @Test
-    void getAllPatientNotes() throws Exception {
-        //Given
+    @DisplayName("Get all notes for a patient")
+    void getAllPatientNotes() {
+        // Given
+        String patientId = "1";
+        List<Note> expectedNotes = List.of(NoteFaker.generateNote(), NoteFaker.generateNote());
 
+        // When
+        when(noteService.getAllPatientNotes(patientId)).thenReturn(expectedNotes);
+        List<Note> resultNotes = noteController.getAllPatientNotes(patientId);
 
-        //When we initiate the request
-        mockMvc.perform(get("/notes/2"))
-
-                //Then we verify is all works correctly
-                .andExpect(status().isOk())
-                .andExpect(content().string(containsString("Le patient dÃ©clare avoir fait une rÃ©action " +
-                        "aux mÃ©dicaments au cours des 3 derniers mois\\r\\nIl remarque Ã©galement que " +
-                        "son audition continue d'Ãªtre anormale")));
+        // Then
+        verify(noteService, times(1)).getAllPatientNotes(patientId);
+        assertEquals(expectedNotes, resultNotes);
     }
 
-    @DisplayName("Try to perform method Get on /notes")
     @Test
-    void addNote() throws Exception {
-        //Given initial DTO
-        NoteDTO noteDTO = new NoteDTO("2", "contenu de test!!");
-        String content = noteDTO.getContent();
+    @DisplayName("Add a new note")
+    void addNote() {
+        // Given
+        NoteDTO noteDTO = new NoteDTO();
+        Note createdNote = new Note();
 
-        //When we initiate the request
-        mockMvc.perform(post("/notes")
-                        .content(new ObjectMapper().writeValueAsString(noteDTO))
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON))
+        // When
+        when(noteService.createNewPatientNote(noteDTO)).thenReturn(createdNote);
+        ResponseEntity<Note> responseEntity = noteController.addNote(noteDTO);
 
-                //Then we verify is all works correctly
-                .andExpect(status().isCreated())
-                .andExpect(content().string(containsString(content)));
+        // Then
+        verify(noteService, times(1)).createNewPatientNote(noteDTO);
+        assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode());
+        assertEquals(createdNote, responseEntity.getBody());
     }
 }
