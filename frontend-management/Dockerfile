@@ -6,4 +6,4 @@ COPY target/frontend-management-*.jar app.jar
 
 EXPOSE 8080
 
-CMD ["java", "-jar", "app.jar"]
+CMD ["java", "-jar", "app.jar", "--spring.config.name=application-docker"]
