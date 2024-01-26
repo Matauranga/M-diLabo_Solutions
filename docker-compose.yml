@@ -1,10 +1,10 @@
 version: '3'
 services:
   mongodb:
-    image: mongo:6.0.13-jammy
+    image: mongodb
 
   mysql:
-    image: database
+    image: mysql
     ports:
       - "3306:3306"
 
