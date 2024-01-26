@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mediLaboSolutions.backendnote.models.Note;
 import com.mediLaboSolutions.backendnote.repositories.NoteRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -16,9 +15,6 @@ import java.util.List;
 @Component
 public class InitData implements CommandLineRunner {
 
-    @Value("${spring.profiles.active:defaultProfile}")
-    private String activeProfile;
-
     private final NoteRepository noteRepository;
 
     public InitData(NoteRepository noteRepository) {
@@ -28,27 +24,22 @@ public class InitData implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        if (activeProfile.contains("test")) {
+        TypeReference<List<Note>> typeReference = new TypeReference<>() {
+        };
+        ObjectMapper objectMapper = new ObjectMapper();
 
-            log.info("|||||||||||||  Initialisation des données désactivé pour le profil 'test'.  |||||||||||||");
-        } else {
+        InputStream inputStream = TypeReference.class.getResourceAsStream("/notesData.json");
 
-            TypeReference<List<Note>> typeReference = new TypeReference<>() {};
-            ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            noteRepository.deleteAll();
 
-            InputStream inputStream = TypeReference.class.getResourceAsStream("/notesData.json");
+            List<Note> entities = objectMapper.readValue(inputStream, typeReference);
 
-            try {
-                noteRepository.deleteAll();
+            noteRepository.saveAll(entities);
+            log.info("|||||||||||||  Initialisation des données réussie!  |||||||||||||");
 
-                List<Note> entities = objectMapper.readValue(inputStream, typeReference);
-
-                noteRepository.saveAll(entities);
-                log.info("|||||||||||||  Initialisation des données réussie!  |||||||||||||");
-
-            } catch (Exception e) {
-                log.error("|||||||||||||  Erreur lors de l'initialisation des données : " + e.getMessage() + "  |||||||||||||");
-            }
+        } catch (Exception e) {
+            log.error("|||||||||||||  Erreur lors de l'initialisation des données : " + e.getMessage() + "  |||||||||||||");
         }
     }
 }
