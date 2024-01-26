@@ -4,8 +4,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mediLaboSolutions.backendnote.models.Note;
 import com.mediLaboSolutions.backendnote.repositories.NoteRepository;
-import lombok.Getter;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
@@ -14,6 +12,10 @@ import org.springframework.stereotype.Component;
 import java.io.InputStream;
 import java.util.List;
 
+/**
+ * This component initializes data in the database on application startup.
+ * It implements the CommandLineRunner interface to execute code after the application context is loaded.
+ */
 @Slf4j
 @Component
 public class InitData implements CommandLineRunner {
@@ -27,12 +29,17 @@ public class InitData implements CommandLineRunner {
         this.noteRepository = noteRepository;
     }
 
+    /**
+     * If the active profile contains "test," data initialization is skipped.
+     * Otherwise, it loads data from a JSON file and saves it in mongoDB via Node Repository.
+     *
+     */
     @Override
     public void run(String... args) {
 
         if (activeProfile.contains("test")) {
 
-            log.info("|||||||||||||  Initialisation des données désactivé pour le profil 'test'.  |||||||||||||");
+            log.info("|||||||||||||  Data initialization disabled for 'test' profile.  |||||||||||||");
         } else {
 
             TypeReference<List<Note>> typeReference = new TypeReference<>() {
@@ -47,10 +54,10 @@ public class InitData implements CommandLineRunner {
                 List<Note> entities = objectMapper.readValue(inputStream, typeReference);
 
                 noteRepository.saveAll(entities);
-                log.info("|||||||||||||  Initialisation des données réussie!  |||||||||||||");
+                log.info("|||||||||||||  Data initialization successful!  |||||||||||||");
 
             } catch (Exception e) {
-                log.error("|||||||||||||  Erreur lors de l'initialisation des données : " + e.getMessage() + "  |||||||||||||");
+                log.error("|||||||||||||  Error during data initialization : " + e.getMessage() + "  |||||||||||||");
             }
         }
     }

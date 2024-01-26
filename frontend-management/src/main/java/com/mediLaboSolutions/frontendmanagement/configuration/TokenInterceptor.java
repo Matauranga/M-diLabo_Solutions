@@ -17,7 +17,7 @@ public class TokenInterceptor implements RequestInterceptor {
     }
 
     /**
-     * Applies the interceptor logic to add the Authorization token to the request header.
+     * Add the Authorization token to the request header.
      *
      * @param requestTemplate the template representing the outgoing Feign request
      */

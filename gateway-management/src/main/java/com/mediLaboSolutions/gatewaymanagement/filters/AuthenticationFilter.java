@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class AuthenticationFilter extends AbstractGatewayFilterFactory<AuthenticationFilter.Config> {
-    //TODO : Chercher pour afficher dans les filtre le nom des requetes
     private final RouteValidator validator;
 
     private final JwtUtil jwtUtil;
