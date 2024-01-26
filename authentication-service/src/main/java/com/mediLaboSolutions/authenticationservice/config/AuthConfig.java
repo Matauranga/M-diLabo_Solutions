@@ -42,7 +42,7 @@ public class AuthConfig {
      */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        AntPathRequestMatcher[] authenticatedPaths = Stream.of("/auth/register", "/auth/login", "/auth/validate")
+        AntPathRequestMatcher[] authenticatedPaths = Stream.of("/auth/register", "/auth/login", "/auth/validate","/actuator/**")
                 .map(AntPathRequestMatcher::new)
                 .toArray(AntPathRequestMatcher[]::new);
 
