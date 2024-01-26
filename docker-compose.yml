@@ -7,25 +7,50 @@ services:
     image: mysql
     ports:
       - "3306:3306"
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://mysql:3306/actuator/health" ]
+      interval: 5s
+      timeout: 2s
+      retries: 12
 
   eureka-server:
     image: ms-eureka-server
     ports:
       - "9102:9102"
-
-  gateway-management:
-    image: ms-gateway
-    ports:
-      - "9002:9002"
     depends_on:
-      - eureka-server
+      mysql:
+        condition: service_healthy
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://eureka-server:9102/actuator/health" ]
+      interval: 5s
+      timeout: 2s
+      retries: 12
 
   authentication-service:
     image: ms-authentication
     ports:
       - "9004:9004"
     depends_on:
-      - eureka-server
+      eureka-server:
+        condition: service_healthy
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://authentication-service:9004/actuator/health" ]
+      interval: 5s
+      timeout: 2s
+      retries: 12
+
+  gateway-management:
+    image: ms-gateway
+    ports:
+      - "9002:9002"
+    depends_on:
+      authentication-service:
+        condition: service_healthy
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://gateway-management:9002/actuator/health" ]
+      interval: 5s
+      timeout: 2s
+      retries: 12
 
   backend-patient-management:
     image: ms-backend-patient
@@ -57,12 +82,7 @@ services:
     ports:
       - "8080:8080"
     depends_on:
-      - mongodb
-      - mysql
-      - eureka-server
-      - gateway-management
-      - backend-risk-assessment
-      - backend-note
-      - backend-patient-management
-      - authentication-service
-
+      gateway-management:
+        condition: service_healthy
+      eureka-server:
+        condition: service_healthy
