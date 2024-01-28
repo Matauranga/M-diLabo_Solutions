@@ -24,7 +24,7 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
      * @param config  the configuration for the filter (unused in this case)
      * @return the GatewayFilter for authentication
      */
-    @Override
+    @Override //Todo revoir
     public GatewayFilter apply(Config config) {
         return ((exchange, chain) -> {
             if (validator.isSecured.test(exchange.getRequest())) {

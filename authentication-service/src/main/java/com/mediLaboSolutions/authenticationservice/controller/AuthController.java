@@ -36,10 +36,10 @@ public class AuthController {
      * @return ResponseEntity containing the JWT token or an unauthorized status
      */
     @PostMapping("/login")
-    public ResponseEntity<String> getToken(@RequestBody AuthRequest authRequest) {
+    public ResponseEntity<String> getToken(@RequestBody AuthRequest authRequest) { //Todo franck
         try {
-            var authentication = new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword());
-            Authentication authenticate = authenticationManager.authenticate(authentication);
+            Authentication authentication = new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()); //todo cest ici que authentifié ou non ?
+            Authentication authenticate = authenticationManager.authenticate(authentication);//todo cest ici que authentifié ou non ?
 
             if (authenticate.isAuthenticated()) {
                 return ResponseEntity.ok(jwtService.generateToken(authRequest.getUsername()));

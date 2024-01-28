@@ -40,7 +40,7 @@ public class JwtService {
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 30))
                 .signWith(getSignKey(), SignatureAlgorithm.HS256).compact();
-    }
+    } //Todo ici token proprieté
 
     private Key getSignKey() {
         byte[] keyBytes = Decoders.BASE64.decode(secretKey);
