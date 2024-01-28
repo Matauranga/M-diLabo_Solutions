@@ -9,14 +9,17 @@
 </head>
 <body>
 
+<form class="m-2 text-end" th:action="@{/logout}" method="POST">
+    <button class="btn btn-outline-primary" type="submit">Logout</button>
+    <a type="button" id="Back" class="btn btn-danger" th:href="@{|/patients|}">Back</a>
+</form>
 
 <div class="container">
     <h1 class="text-center">Fiche Patient</h1>
     <h2 th:text="${patient.firstname + ' ' + patient.lastname}" class="font-weight-bold"></h2>
 </div>
 
-
-<div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+<div class="m-5 ">
     <div class="card h-100">
         <div class="card-body">
 
@@ -31,7 +34,7 @@
                         <div class="form-group">
                             <label for="firstname">Firstname</label>
                             <input type="text" class="form-control" id="firstname" th:field="*{firstname}"
-                                   th:placeholder="${patient.getFirstname()}">
+                                   th:placeholder="${patient.getFirstname()}" required>
                         </div>
                     </div>
 
@@ -39,7 +42,7 @@
                         <div class="form-group">
                             <label for="lastname">Lastname</label>
                             <input type="text" class="form-control" id="lastname" th:field="*{lastname}"
-                                   th:placeholder="${patient.getLastname()}">
+                                   th:placeholder="${patient.getLastname()}" required>
                         </div>
                     </div>
 
@@ -55,10 +58,7 @@
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                         <div class="form-group">
                             <label for="gender">Gender</label>
-                            <!--                            <input type="text" class="form-control" id="gender" th:field="*{gender}"-->
-                            <!--                                   th:placeholder="${patient.getGender()}">-->
-
-                            <select type="text" class="form-control" id="gender" th:field="*{gender}">
+                            <select type="text" class="form-control" id="gender" th:field="*{gender}" required>
                                 <option th:value="'M'" th:text="Male"></option>
                                 <option th:value="'F'" th:text="Female"></option>
                             </select>
@@ -87,8 +87,6 @@
                             <div class="text-end">
                                 <button type="submit" id="submit" name="submit" class="btn btn-primary">Update
                                 </button>
-                                <a type="button" id="Back" class="btn btn-danger" th:href="@{|/patients|}">Back
-                                </a>
                             </div>
                         </div>
                     </div>
@@ -149,7 +147,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>

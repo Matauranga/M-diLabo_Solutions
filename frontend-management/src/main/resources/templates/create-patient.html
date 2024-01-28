@@ -28,7 +28,7 @@
                         <div class="form-group">
                             <label for="firstname">Firstname</label>
                             <input type="text" class="form-control" id="firstname"
-                                   placeholder="firstname" th:field="*{firstname}">
+                                   placeholder="firstname" th:field="*{firstname}" required>
                         </div>
                     </div>
 
@@ -36,22 +36,22 @@
                         <div class="form-group">
                             <label for="lastname">Lastname</label>
                             <input type="text" class="form-control" id="lastname"
-                                   placeholder="lastname" th:field="*{lastname}">
+                                   placeholder="lastname" th:field="*{lastname}" required>
                         </div>
                     </div>
 
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                         <div class="form-group">
                             <label for="birthdate">Birthdate</label>
-                            <input type="text" name="birthdate" class="form-control" id="birthdate"
-                                   placeholder="birthdate" th:field="*{birthdate}">
+                            <input type="date" name="birthdate" class="form-control" id="birthdate"
+                                   placeholder="birthdate" th:field="*{birthdate}" required>
                         </div>
                     </div>
 
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                         <div class="form-group">
                             <label for="gender">Gender</label>
-                            <select type="text" class="form-control" id="gender" th:field="*{gender}">
+                            <select type="text" class="form-control" id="gender" th:field="*{gender}" required>
                                 <option th:value="'M'" th:text="Male"></option>
                                 <option th:value="'F'" th:text="Female"></option>
                             </select>
