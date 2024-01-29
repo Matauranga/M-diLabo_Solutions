@@ -1,31 +1,24 @@
-# Read Me First
-The following was discovered as part of building this project:
+# Authentication Service
 
-* The original package name 'com.mediLaboSolutions.gateway-management' is invalid and this project uses 'com.mediLaboSolutions.gatewaymanagement' instead.
+Service that manages authentication, authorizations and everything related to security.
 
-# Getting Started
+## Technologies
 
-### Reference Documentation
-For further reference, please consider the following sections:
+* Spring Boot Starter Data JPA 3.2.1
+* Spring Boot Starter Validation 3.2.1
+* Spring Boot Starter Web 3.2.1
+* Spring Boot Starter Security 3.2.1
+* Spring Security Core 6.2.1
+* Spring Security Test 6.2.1
+* Spring Cloud Starter Netflix Eureka Client 4.1.0-RCI
+* H2 Database 2.2.224
+* JSON web Token :
+    * jjwt-api 0.11.5
+    * jjwt-impl 0.11.5
+    * jjwt-jackson 0.11.5
 
-* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)
-* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/3.2.0/maven-plugin/reference/html/)
-* [Create an OCI image](https://docs.spring.io/spring-boot/docs/3.2.0/maven-plugin/reference/html/#build-image)
-* [Spring Boot DevTools](https://docs.spring.io/spring-boot/docs/3.2.0/reference/htmlsingle/index.html#using.devtools)
-* [OpenFeign](https://docs.spring.io/spring-cloud-openfeign/docs/current/reference/html/)
-* [Gateway](https://docs.spring.io/spring-cloud-gateway/docs/current/reference/html/)
-* [Spring Security](https://docs.spring.io/spring-boot/docs/3.2.0/reference/htmlsingle/index.html#web.security)
+### Docker image
 
-### Guides
-The following guides illustrate how to use some features concretely:
+Use the console, go to the corresponding module directory and run the command:
 
-* [Using Spring Cloud Gateway](https://github.com/spring-cloud-samples/spring-cloud-gateway-sample)
-* [Securing a Web Application](https://spring.io/guides/gs/securing-web/)
-* [Spring Boot and OAuth2](https://spring.io/guides/tutorials/spring-boot-oauth2/)
-* [Authenticating a User with LDAP](https://spring.io/guides/gs/authenticating-ldap/)
-
-### Additional Links
-These additional references should also help you:
-
-* [Declarative REST calls with Spring Cloud OpenFeign sample](https://github.com/spring-cloud-samples/feign-eureka)
-
+        docker build -t ms-authentication .
