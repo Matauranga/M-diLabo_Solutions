@@ -10,7 +10,7 @@ Service that manages authentication, authorizations and everything related to se
 * Spring Boot Starter Security 3.2.1
 * Spring Security Core 6.2.1
 * Spring Security Test 6.2.1
-* Spring Cloud Starter Netflix Eureka Client 4.1.0-RCI
+* Spring Cloud Starter Netflix Eureka Client 4.1.0
 * H2 Database 2.2.224
 * JSON web Token :
     * jjwt-api 0.11.5

@@ -6,8 +6,8 @@ and communication between front and back services.
 ## Technologies
 
 * Spring Boot Starter Webflux 3.2.1
-* Spring Cloud Starter Gateway 4.1.0-RCI
-* Spring Cloud Starter Netflix Eureka Client 4.1.0-RCI
+* Spring Cloud Starter Gateway 4.1.0
+* Spring Cloud Starter Netflix Eureka Client 4.1.0
 * JSON web Token :
     * jjwt-api 0.11.5
     * jjwt-impl 0.11.5

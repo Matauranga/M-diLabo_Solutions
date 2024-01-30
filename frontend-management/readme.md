@@ -8,9 +8,10 @@ The user interface is accessible on port 8080
 
 * Spring Boot Starter Thymeleaf 3.2.1
 * Spring Boot Starter Web 3.2.1
-* Spring Cloud Starter Openfeign 4.1.0-RCI
-* Spring Cloud Starter Netflix Eureka Client 4.1.0-RCI
+* Spring Cloud Starter Openfeign 4.1.0
+* Spring Cloud Starter Netflix Eureka Client 4.1.0
 * Jakarta Validation API 3.0.2
+* Bootstrap 5.1.3
 
 ### Docker image
 

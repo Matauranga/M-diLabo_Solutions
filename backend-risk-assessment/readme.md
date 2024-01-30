@@ -7,8 +7,8 @@ It presents his result on the port : 9006
 ## Technologies
 
 * Spring Boot Starter Web 3.2.1
-* Spring Cloud Starter Netflix Eureka Client 4.1.0-RCI
-* Spring Cloud Starter Openfeign 4.1.0-RCI
+* Spring Cloud Starter Netflix Eureka Client 4.1.0
+* Spring Cloud Starter Openfeign 4.1.0
 
 ### Docker image
 

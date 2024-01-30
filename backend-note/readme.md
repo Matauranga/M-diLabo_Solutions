@@ -9,7 +9,7 @@ It presents his result on the port : 9005
 
 * Spring Boot Starter Data MongoDB 3.2.1
 * Spring Boot Starter Web 3.2.1
-* Spring Cloud Starter Netflix Eureka Client 4.1.0-RCI
+* Spring Cloud Starter Netflix Eureka Client 4.1.0
 * Spring test 6.1.2
 * DataFaker 1.6.0
 

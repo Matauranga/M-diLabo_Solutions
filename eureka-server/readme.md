@@ -7,7 +7,7 @@ It's accessible on port : 9102
 
 ## Technologie
 
-* Spring Cloud Starter Netflix Eureka Server 4.1.0-RCI
+* Spring Cloud Starter Netflix Eureka Server 4.1.0
 
 ### Docker image
 

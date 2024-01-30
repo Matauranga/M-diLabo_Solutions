@@ -9,8 +9,8 @@ It presents his result on the port : 9001
 
 * Spring Boot Starter Data JPA 3.2.1
 * Spring Boot Starter Web 3.2.1
-* Spring Cloud Starter Netflix Eureka Client 4.1.0-RCI
-* Spring Cloud Starter Openfeign 4.1.0-RCI
+* Spring Cloud Starter Netflix Eureka Client 4.1.0
+* Spring Cloud Starter Openfeign 4.1.0
 * Mysql Connector J 8.3.0
 * Jakarta Validation API 3.0.2
 * H2 Database 2.2.224
