@@ -28,7 +28,7 @@ The application helps doctors detect diabetes in their patients based on informa
 
 ## Usage
 
-1. Create docker images (refer to the next point, or for a specific module, go to its readme) ???
+1. Create docker images (refer to the next point, or for a specific module, go to its readme) 
 2. Run the docker-compose.yml
     * Use the console, go to the main directory and run the command:
 
@@ -70,24 +70,24 @@ The application helps doctors detect diabetes in their patients based on informa
 
 ## Global overview architecture
 
-![globalOverviewArchitecture.png](documents/globalOverviewArchitecture.png)
+![globalOverviewArchitecture.png](documents/globalOverviewArchitecture.PNG)
 
 ## Screenshot
 
 ### Login page
 
-![loginView.png](documents/loginView.png)
+![loginView.png](documents/loginView.PNG)
 
 ### List of all patients
 
-![patientListView.png](documents/patientListView.png)
+![patientListView.png](documents/patientListView.PNG)
 
 ### Patient creation page
 
-![createPatientView.png](documents/createPatientView.png)
+![createPatientView.png](documents/createPatientView.PNG)
 
 ### Patient details page
 
-![patientDetailsView.png](documents/patientDetailsView.png)
+![patientDetailsView.png](documents/patientDetailsView.PNG)
 
 
