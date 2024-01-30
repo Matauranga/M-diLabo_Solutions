@@ -1,11 +1,13 @@
 package com.mediLaboSolutions.gatewaymanagement.filters;
 
 import com.mediLaboSolutions.gatewaymanagement.util.JwtUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 
+@Slf4j
 @Component
 public class AuthenticationFilter extends AbstractGatewayFilterFactory<AuthenticationFilter.Config> {
     private final RouteValidator validator;
@@ -24,7 +26,7 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
      * @param config  the configuration for the filter (unused in this case)
      * @return the GatewayFilter for authentication
      */
-    @Override //Todo revoir
+    @Override
     public GatewayFilter apply(Config config) {
         return ((exchange, chain) -> {
             if (validator.isSecured.test(exchange.getRequest())) {
@@ -43,7 +45,7 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
                 try {
                     jwtUtil.validateToken(authHeader);
                 } catch (Exception e) {
-                    System.out.println("invalid access...!");
+                    log.info("invalid access...!");
                     throw new RuntimeException("Unauthorized access to application");
                 }
             }
