@@ -37,6 +37,3 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://eureka-server:9102/eureka/
-
-jwt:
-  secret: "QicO2Lma84FRkfXtMDUMalt8B3e1LU7ePvAPmXA6BX2ElQGHqTm3iB4IrqvHspxJBaxLhVvc0kZXYAwB3yzNjHStOL5H241FKodOpwqxw7ez9v3FquEz5bDoNiz0IOiV"
